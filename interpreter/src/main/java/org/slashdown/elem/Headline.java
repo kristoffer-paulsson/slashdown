@@ -21,7 +21,6 @@
  */
 package org.slashdown.elem;
 
-import org.slashdown.lexer.AbstractBlockCommand;
 import org.slashdown.lexer.Command;
 import org.slashdown.lexer.CommandMap;
 import org.slashdown.lexer.CommandType;
@@ -38,13 +37,15 @@ public class Headline extends Element{
     public Headline(int level) {
         this.level = level;
         System.out.println("NEW HEADLINE " + level);
-
     }
 
     public int getLevel() {
         return level;
     }
 
+    /**
+     *
+     * */
     @Override
     public boolean offerToken(Token token) {
         if(firstBlockCommand && firstEndOfLine) {
@@ -56,11 +57,10 @@ public class Headline extends Element{
         }
         if(token.type() == TokenType.COMMAND) {
             Command command = CommandMap.getCommand(token.value());
-            if(command != null && command.getType() == CommandType.BLOCK) {
-                if(firstBlockCommand) {
-                    throw new IllegalStateException("SYNTAX ERROR");
-                }
+            if(command != null && command.getType() == CommandType.BLOCK && tokens.isEmpty()) {
                 firstBlockCommand = true;
+            } else {
+                throw new IllegalStateException("SYNTAX ERROR");
             }
         }
 
