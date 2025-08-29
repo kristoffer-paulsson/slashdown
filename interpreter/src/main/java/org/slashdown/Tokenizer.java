@@ -21,5 +21,27 @@
  */
 package org.slashdown;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class Tokenizer {
+    private final BufferedReader reader;
+
+    public Tokenizer(InputStream input) {
+        this.reader = new BufferedReader(new InputStreamReader(input));
+    }
+
+    public void tokenize() throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            processLine(line);
+        }
+    }
+
+    private void processLine(String line) {
+        // Tokenization logic goes here
+        System.out.println("Processing: " + line);
+    }
 }
