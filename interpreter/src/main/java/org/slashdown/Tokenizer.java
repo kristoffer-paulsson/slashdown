@@ -69,7 +69,7 @@ public class Tokenizer {
                 }
             }
             if (!matched) {
-                // If no scanner matched, move to the next character to avoid infinite loop
+                tokens.add((new Token(TokenType.UNKNOWN, String.valueOf(line.charAt(index)))));
                 index++;
             }
         }

@@ -3,12 +3,10 @@ package org.slashdown;
 import java.io.IOException;
 import java.io.InputStream;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         // Example usage of the Tokenizer
-        String exampleInput = "Hello, World!\nThis \\b is a test.";
+        String exampleInput = "Hello, World!\nThis \\b\\i is a test.";
         InputStream inputStream = new java.io.ByteArrayInputStream(exampleInput.getBytes());
         Tokenizer tokenizer = new Tokenizer(inputStream);
         try {
