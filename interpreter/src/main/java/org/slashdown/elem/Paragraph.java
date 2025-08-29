@@ -19,13 +19,7 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.el;
+package org.slashdown.elem;
 
-import org.slashdown.token.Token;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class BlockElement {
-    private List<Token> tokens = new ArrayList<>();
+public class Paragraph implements Element {
 }

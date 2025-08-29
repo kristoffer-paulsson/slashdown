@@ -21,5 +21,12 @@
  */
 package org.slashdown.lexer;
 
-abstract class AbstractHeadlineCommand extends AbstractBlockCommand {
+import org.slashdown.token.Token;
+
+public abstract class AbstractHeadlineCommand extends AbstractBlockCommand {
+
+    @Override
+    public void offerToken(Token token) {
+
+    }
 }

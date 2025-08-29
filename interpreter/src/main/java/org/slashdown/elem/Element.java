@@ -19,19 +19,7 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.lexer;
+package org.slashdown.elem;
 
-import org.slashdown.token.Token;
-
-public class ParagraphCommand extends AbstractBlockCommand {
-
-    @Override
-    public String getName() {
-        return "\\p";
-    }
-
-    @Override
-    public void offerToken(Token token) {
-
-    }
+public interface Element {
 }

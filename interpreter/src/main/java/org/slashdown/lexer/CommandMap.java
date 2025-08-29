@@ -55,4 +55,8 @@ public class CommandMap {
     public static void registerCommand(Command command) {
         COMMANDS.put(command.getName(), command);
     }
+
+    public static Command getCommand(String name) {
+        return COMMANDS.get(name);
+    }
 }

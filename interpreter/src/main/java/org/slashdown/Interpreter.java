@@ -21,54 +21,31 @@
  */
 package org.slashdown;
 
-import org.slashdown.el.BlockElement;
+import org.slashdown.lexer.AbstractBlockCommand;
+import org.slashdown.lexer.CommandMap;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenIterator;
-import org.slashdown.token.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Interpreter {
 
-
-
     private TokenIterator tokenIterator;
 
-    private List<BlockElement> blocks = new ArrayList<>();
-    private BlockElement currentBlock;
+    private List<AbstractBlockCommand> blocks = new ArrayList<>();
+    private AbstractBlockCommand currentBlock = null;
 
     Interpreter(TokenIterator tokenIterator) {
         this.tokenIterator = tokenIterator;
     }
 
-    protected Token generateParagraphToken() {
-        return new Token(TokenType.COMMAND, "\n\n", 1, 1);
-    }
-
     public void interpret() {
-        Token firstToken = null;
-        if(tokenIterator.hasNext()) {
-            firstToken = tokenIterator.next();
-        }
+        currentBlock = (AbstractBlockCommand) CommandMap.getCommand("\\p");
 
         while (tokenIterator.hasNext()) {
             Token token = tokenIterator.next();
-            if (token.type() == org.slashdown.token.TokenType.EOL) {
-                eolCount++;
-            } else if(eolCount > 0 && token.type() != TokenType.WHITESPACE) {
-                if(eolCount > 1) {
-                    System.out.println("PARAGRAPH"); // Print an extra newline for paragraph break
-                } else {
-                    if(eolCount == 1) {
-                        System.out.println("EOL");
-                    }
-                    System.out.println(token);
-                }
-                eolCount = 0;
-            } else {
-                System.out.println(token);
-            }
+            currentBlock.offerToken(token);
         }
     }
 }
