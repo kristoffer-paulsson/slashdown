@@ -29,6 +29,8 @@ public class Headline extends Element{
 
     public Headline(int level) {
         this.level = level;
+        System.out.println("NEW HEADLINE " + level);
+
     }
 
     public int getLevel() {

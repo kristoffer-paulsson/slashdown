@@ -25,6 +25,12 @@ import org.slashdown.token.Token;
 
 public class Paragraph extends Element {
 
+    private int eolCount = 0;
+
+    public Paragraph() {
+        System.out.println("NEW PARAGRAPH");
+    }
+
     @Override
     public boolean offerToken(Token token) {
         tokens.add(token);
