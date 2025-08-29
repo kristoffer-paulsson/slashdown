@@ -21,5 +21,5 @@
  */
 package org.slashdown.lexer;
 
-abstract class AbstractHeadlineCommand extends AbstractBlockCommand{
+abstract class AbstractHeadlineCommand extends AbstractBlockCommand {
 }

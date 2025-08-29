@@ -21,7 +21,6 @@
  */
 package org.slashdown.lexer;
 
-public interface Command {
-    public String getName();
-    public CommandType getType();
+public enum CommandType {
+    BLOCK;
 }

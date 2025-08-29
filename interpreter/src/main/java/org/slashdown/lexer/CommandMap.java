@@ -28,12 +28,12 @@ public class CommandMap {
     public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
 
     static {
-        new Heading1Command();
-                new Heading2Command();
-                new Heading3Command();
-                new Heading4Command();
-                new Heading5Command();
-                new Heading6Command();
+        registerCommand(new Heading1Command());
+        registerCommand(new Heading2Command());
+        registerCommand(new Heading3Command());
+        registerCommand(new Heading4Command());
+        registerCommand(new Heading5Command());
+        registerCommand(new Heading6Command());
             /*new HorizontalRuleCommand(),
             new BlockQuoteCommand(),
             new OrderedListCommand(),
@@ -41,6 +41,18 @@ public class CommandMap {
             new FencedCodeBlockCommand(),
             new IndentedCodeBlockCommand(),
             new TableCommand(),*/
-                new ParagraphCommand();
+        registerCommand(new ParagraphCommand())
+            /*new LineBreakCommand(),
+            new BoldCommand(),
+            new ItalicCommand(),
+            new StrikethroughCommand(),
+            new InlineCodeCommand(),
+            new LinkCommand(),
+            new ImageCommand(),
+            new EscapeCommand()*/;
+    }
+
+    public static void registerCommand(Command command) {
+        COMMANDS.put(command.getName(), command);
     }
 }

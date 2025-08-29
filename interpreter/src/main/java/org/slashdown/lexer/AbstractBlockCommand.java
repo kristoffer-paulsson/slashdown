@@ -25,4 +25,9 @@ public abstract class AbstractBlockCommand implements Command {
 
     @Override
     public abstract String getName();
+
+    @Override
+    public CommandType getType() {
+        return CommandType.BLOCK;
+    }
 }
