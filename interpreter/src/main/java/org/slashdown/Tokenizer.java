@@ -42,6 +42,7 @@ public class Tokenizer {
         scanners.add(new TokenWhitespace());
         scanners.add(new TokenWord());
         scanners.add(new TokenSymbol());
+        scanners.add(new TokenCommand());
         //scanners.add(new TokenNonWhitespace());
     }
 
@@ -57,7 +58,7 @@ public class Tokenizer {
         while (index < line.length()) {
             boolean matched = false;
             for (TokenScanner scanner : scanners) {
-                if (scanner.isValid(line.charAt(index))) {
+                if (scanner.initialValid(line.charAt(index))) {
                     StringBuilder tokenValue = new StringBuilder();
                     int stop = scanner.scanUntil(line, index);
                     tokenValue.append(line, index, stop);
