@@ -19,23 +19,31 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-import java.util.Set;
+import java.util.Iterator;
+import java.util.List;
 
-public class TokenSymbol extends TokenScanner {
-    static public final Set<Character> CHARACTERS = Set.of(
-            '.', ',', ';', ':', '!', '?', '-', '_',
-            '(', ')', '[', ']', '{', '}', '<', '>',
-            '/', /*'\\',*/ '\'', '\"', '@', '#', '$', '%',
-            '^', '&', '*', '~', '`', '+', '='
-    );
+public class TokenIterator implements Iterator<Token> {
+    private final Tokenizer tokenizer;
+    protected List<Token> tokens;
 
-    public boolean isValid(char c) {
-        return CHARACTERS.contains(c);
+    public TokenIterator(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
+        this.tokens = tokenizer.processNextLine();
     }
 
-    public TokenType getType() {
-        return TokenType.SYMBOL;
+    public boolean hasNext() {
+        if(tokens.isEmpty()) {
+            tokens = tokenizer.processNextLine();
+        }
+        return !tokens.isEmpty();
+    }
+
+    public Token next() {
+        if (!hasNext()) {
+            throw new IndexOutOfBoundsException("No more tokens available.");
+        }
+        return tokens.remove(0);
     }
 }

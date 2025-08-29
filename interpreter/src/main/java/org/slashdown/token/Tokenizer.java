@@ -19,7 +19,7 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
 import java.io.BufferedReader;
 import java.io.IOException;

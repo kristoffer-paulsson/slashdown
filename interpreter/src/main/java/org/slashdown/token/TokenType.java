@@ -1,4 +1,4 @@
-package org.slashdown;
+package org.slashdown.token;
 
 public enum TokenType {
     UNKNOWN,

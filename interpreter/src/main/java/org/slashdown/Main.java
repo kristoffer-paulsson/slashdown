@@ -1,5 +1,9 @@
 package org.slashdown;
 
+import org.slashdown.token.Token;
+import org.slashdown.token.TokenIterator;
+import org.slashdown.token.Tokenizer;
+
 import java.io.InputStream;
 
 public class Main {

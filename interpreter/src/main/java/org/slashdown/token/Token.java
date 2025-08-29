@@ -19,23 +19,15 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-public abstract class TokenScanner {
-
-    public abstract TokenType getType();
-
-    protected abstract boolean isValid(char c);
-
-    public boolean initialValid(char c) {
-        return isValid(c);
-    }
-
-    public int scanUntil(String line, int start) {
-        int i = start;
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
+public record Token(TokenType type, String value, int line, int column) {
+    public String toString() {
+        if(type == TokenType.WHITESPACE) {
+            return String.format("Token: WHITESPACE - %s:%s", line, column);
+        } else if(type == TokenType.EOL) {
+            return String.format("Token: EOL - %s:%s", line, column);
         }
-        return i;
+        return String.format("Token: %s=\"%s\" - %s:%s", type, value, line, column);
     }
 }

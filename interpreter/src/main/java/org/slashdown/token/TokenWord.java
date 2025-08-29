@@ -19,31 +19,25 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
-public class TokenIterator implements Iterator<Token> {
-    private final Tokenizer tokenizer;
-    protected List<Token> tokens;
+public class TokenWord extends TokenScanner {
+    static public final Set<Character> CHARACTERS = Set.of(
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            '_',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    );
 
-    public TokenIterator(Tokenizer tokenizer) {
-        this.tokenizer = tokenizer;
-        this.tokens = tokenizer.processNextLine();
+    public boolean isValid(char c) {
+        return CHARACTERS.contains(c);
     }
 
-    public boolean hasNext() {
-        if(tokens.isEmpty()) {
-            tokens = tokenizer.processNextLine();
-        }
-        return !tokens.isEmpty();
-    }
-
-    public Token next() {
-        if (!hasNext()) {
-            throw new IndexOutOfBoundsException("No more tokens available.");
-        }
-        return tokens.remove(0);
+    public TokenType getType() {
+        return TokenType.WORD;
     }
 }

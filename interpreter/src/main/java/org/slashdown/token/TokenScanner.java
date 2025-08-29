@@ -19,32 +19,23 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-public class TokenCommand extends TokenScanner {
+public abstract class TokenScanner {
+
+    public abstract TokenType getType();
+
+    protected abstract boolean isValid(char c);
 
     public boolean initialValid(char c) {
-        return c == '\\';
-    }
-
-    public boolean isValid(char c) {
-        return TokenWord.CHARACTERS.contains(c);
+        return isValid(c);
     }
 
     public int scanUntil(String line, int start) {
         int i = start;
-        if (i < line.length() && initialValid(line.charAt(i))) {
-            i++;
-        } else {
-            return start;
-        }
         while (i < line.length() && isValid(line.charAt(i))) {
             i++;
         }
         return i;
-    }
-
-    public TokenType getType() {
-        return TokenType.COMMAND;
     }
 }

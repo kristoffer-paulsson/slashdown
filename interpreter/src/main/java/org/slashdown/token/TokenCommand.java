@@ -19,15 +19,32 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-public class TokenNonWhitespace extends TokenScanner {
+public class TokenCommand extends TokenScanner {
+
+    public boolean initialValid(char c) {
+        return c == '\\';
+    }
 
     public boolean isValid(char c) {
-        return !TokenWhitespace.CHARACTERS.contains(c);
+        return TokenWord.CHARACTERS.contains(c);
+    }
+
+    public int scanUntil(String line, int start) {
+        int i = start;
+        if (i < line.length() && initialValid(line.charAt(i))) {
+            i++;
+        } else {
+            return start;
+        }
+        while (i < line.length() && isValid(line.charAt(i))) {
+            i++;
+        }
+        return i;
     }
 
     public TokenType getType() {
-        return TokenType.WHITESPACE;
+        return TokenType.COMMAND;
     }
 }

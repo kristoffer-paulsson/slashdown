@@ -19,15 +19,19 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown;
+package org.slashdown.token;
 
-public record Token(TokenType type, String value, int line, int column) {
-    public String toString() {
-        if(type == TokenType.WHITESPACE) {
-            return String.format("Token: WHITESPACE - %s:%s", line, column);
-        } else if(type == TokenType.EOL) {
-            return String.format("Token: EOL - %s:%s", line, column);
-        }
-        return String.format("Token: %s=\"%s\" - %s:%s", type, value, line, column);
+import java.util.Set;
+
+public class TokenWhitespace extends TokenScanner {
+
+    static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n', '\f');
+
+    public boolean isValid(char c) {
+        return CHARACTERS.contains(c);
+    }
+
+    public TokenType getType() {
+        return TokenType.WHITESPACE;
     }
 }
