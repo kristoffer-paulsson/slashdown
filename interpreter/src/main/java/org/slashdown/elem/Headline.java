@@ -21,5 +21,5 @@
  */
 package org.slashdown.elem;
 
-public class Headline implements Element{
+public class Headline extends Element{
 }

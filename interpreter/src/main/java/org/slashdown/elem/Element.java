@@ -21,5 +21,11 @@
  */
 package org.slashdown.elem;
 
-public interface Element {
+import org.slashdown.token.Token;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Element {
+    protected List<Token> tokens = new ArrayList<>();
 }

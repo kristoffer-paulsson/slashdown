@@ -21,6 +21,7 @@
  */
 package org.slashdown;
 
+import org.slashdown.elem.Element;
 import org.slashdown.lexer.AbstractBlockCommand;
 import org.slashdown.lexer.CommandMap;
 import org.slashdown.token.Token;
@@ -33,8 +34,8 @@ public class Interpreter {
 
     private TokenIterator tokenIterator;
 
-    private List<AbstractBlockCommand> blocks = new ArrayList<>();
-    private AbstractBlockCommand currentBlock = null;
+    private List<Element> blocks = new ArrayList<>();
+    private Element currentBlock = null;
 
     Interpreter(TokenIterator tokenIterator) {
         this.tokenIterator = tokenIterator;
