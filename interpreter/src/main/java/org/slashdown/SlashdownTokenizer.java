@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SlashdownTokenizer {
+/*public class SlashdownTokenizer {
     // Regex for tags: \ followed by lowercase alphanumeric or underscore
     private static final Pattern TAG_PATTERN = Pattern.compile("\\\\([a-z0-9_]+)");
     // Regex for words: alphanumeric or underscore
@@ -149,4 +149,4 @@ public class SlashdownTokenizer {
                     line.charAt(pos) + "' at position " + pos);
         }
     }
-}
+}*/

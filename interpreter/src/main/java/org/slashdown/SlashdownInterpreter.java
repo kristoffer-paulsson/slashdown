@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SlashdownInterpreter {
+/*public class SlashdownInterpreter {
     // Define valid block and inline commands
     private static final String[] BLOCK_COMMANDS = {"h1", "h2", "h3", "h4", "h5", "h6"};
     private static final String[] INLINE_COMMANDS = {"b", "i", "u"};
@@ -222,4 +222,4 @@ public class SlashdownInterpreter {
             System.err.println("Error: " + e.getMessage());
         }
     }
-}
+}*/
