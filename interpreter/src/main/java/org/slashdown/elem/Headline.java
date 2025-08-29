@@ -21,5 +21,23 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.token.Token;
+
 public class Headline extends Element{
+
+    private final int level;
+
+    public Headline(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public boolean offerToken(Token token) {
+        tokens.add(token);
+        return true;
+    }
 }

@@ -28,4 +28,6 @@ import java.util.List;
 
 public abstract class Element {
     protected List<Token> tokens = new ArrayList<>();
+
+    public abstract boolean offerToken(Token token);
 }

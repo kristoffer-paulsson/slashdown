@@ -27,4 +27,9 @@ public class Heading5Command extends AbstractHeadlineCommand {
     public String getName() {
         return "\\h5";
     }
+
+    @Override
+    public int getLevel() {
+        return 5;
+    }
 }

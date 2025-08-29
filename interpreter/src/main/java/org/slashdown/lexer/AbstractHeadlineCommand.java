@@ -21,12 +21,13 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.token.Token;
+import org.slashdown.elem.Headline;
 
-public abstract class AbstractHeadlineCommand extends AbstractBlockCommand {
+public abstract class AbstractHeadlineCommand extends AbstractBlockCommand<Headline> {
 
-    @Override
-    public void offerToken(Token token) {
+    public abstract int getLevel();
 
+    public Headline generateElement() {
+        return new Headline(getLevel());
     }
 }

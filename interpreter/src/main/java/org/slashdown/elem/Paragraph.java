@@ -21,5 +21,13 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.token.Token;
+
 public class Paragraph extends Element {
+
+    @Override
+    public boolean offerToken(Token token) {
+        tokens.add(token);
+        return true;
+    }
 }

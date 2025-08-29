@@ -21,12 +21,13 @@
  */
 package org.slashdown.lexer;
 
+import org.slashdown.elem.Element;
 import org.slashdown.token.Token;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractBlockCommand implements Command {
+public abstract class AbstractBlockCommand<E extends Element> implements Command {
 
     private List<Token> tokens = new ArrayList<>();
     private boolean finished = false;
@@ -43,5 +44,5 @@ public abstract class AbstractBlockCommand implements Command {
         return CommandType.BLOCK;
     }
 
-    public abstract void offerToken(Token token);
+    public abstract E generateElement();
 }

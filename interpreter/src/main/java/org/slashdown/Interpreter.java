@@ -22,10 +22,14 @@
 package org.slashdown;
 
 import org.slashdown.elem.Element;
+import org.slashdown.elem.Paragraph;
 import org.slashdown.lexer.AbstractBlockCommand;
+import org.slashdown.lexer.Command;
 import org.slashdown.lexer.CommandMap;
+import org.slashdown.lexer.CommandType;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenIterator;
+import org.slashdown.token.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +39,26 @@ public class Interpreter {
     private TokenIterator tokenIterator;
 
     private List<Element> blocks = new ArrayList<>();
-    private Element currentBlock = null;
+    private Element currentBlock = new Paragraph();
 
     Interpreter(TokenIterator tokenIterator) {
         this.tokenIterator = tokenIterator;
     }
 
     public void interpret() {
-        currentBlock = (AbstractBlockCommand) CommandMap.getCommand("\\p");
 
         while (tokenIterator.hasNext()) {
             Token token = tokenIterator.next();
+
+            if(token.type() == TokenType.COMMAND) {
+                Command command = CommandMap.getCommand(token.value());
+                if(command.getType() == CommandType.BLOCK) {
+                    AbstractBlockCommand block = (AbstractBlockCommand) command;
+                    blocks.add(currentBlock);
+                    currentBlock = block.generateElement();
+                }
+            }
+
             currentBlock.offerToken(token);
         }
     }
