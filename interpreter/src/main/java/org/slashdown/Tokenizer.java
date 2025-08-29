@@ -88,6 +88,7 @@ public class Tokenizer {
                 index++;
             }
         }
+        tokens.add(new Token(TokenType.EOL, "\\n", lineNumber, line.length() + 1));
     }
 
     public List<Token> getTokens() {

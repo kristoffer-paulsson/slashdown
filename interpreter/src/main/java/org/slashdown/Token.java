@@ -24,8 +24,10 @@ package org.slashdown;
 public record Token(TokenType type, String value, int line, int column) {
     public String toString() {
         if(type == TokenType.WHITESPACE) {
-            return "Token: WHITESPACE";
+            return String.format("Token: WHITESPACE - %s:%s", line, column);
+        } else if(type == TokenType.EOL) {
+            return String.format("Token: EOL - %s:%s", line, column);
         }
-        return String.format("Token: %s=\"%s\"", type, value);
+        return String.format("Token: %s=\"%s\" - %s:%s", type, value, line, column);
     }
 }
