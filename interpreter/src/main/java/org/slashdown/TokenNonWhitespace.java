@@ -21,13 +21,9 @@
  */
 package org.slashdown;
 
-import java.util.Set;
-
-public class TokenWhitespace extends TokenScanner {
-
-    static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n', '\f');
+public class TokenNonWhitespace extends TokenScanner {
 
     public boolean isValid(char c) {
-        return CHARACTERS.contains(c);
+        return !TokenWhitespace.CHARACTERS.contains(c);
     }
 }

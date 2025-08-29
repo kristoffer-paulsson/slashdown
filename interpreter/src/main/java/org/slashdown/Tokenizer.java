@@ -25,12 +25,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tokenizer {
     private final BufferedReader reader;
 
+    private List<TokenScanner> scanners = new ArrayList<>();
+
     public Tokenizer(InputStream input) {
         this.reader = new BufferedReader(new InputStreamReader(input));
+
+        // Initialize scanners
+        scanners.add(new TokenWhitespace());
     }
 
     public void tokenize() throws IOException {

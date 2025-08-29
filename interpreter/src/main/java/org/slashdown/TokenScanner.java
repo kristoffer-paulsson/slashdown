@@ -21,11 +21,23 @@
  */
 package org.slashdown;
 
-public interface TokenScanner {
+public abstract class TokenScanner {
 
-    public boolean isValid(char c);
+    public abstract boolean isValid(char c);
 
-    public int scanUntil(String line, int start);
+    public int scanUntil(String line, int start) {
+        int i = start;
+        while (i < line.length() && isValid(line.charAt(i))) {
+            i++;
+        }
+        return i;
+    }
 
-    public int scanWhile(String line, int start);
+    public int scanWhile(String line, int start) {
+        int i = start;
+        while (i < line.length() && !isValid(line.charAt(i))) {
+            i++;
+        }
+        return i;
+    }
 }
