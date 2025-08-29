@@ -56,14 +56,16 @@ public class Tokenizer {
     }
 
     public List<Token> processNextLine() {
+        tokens.clear();
         try {
-            String line = reader.readLine();
+            String line;
+            if ((line = reader.readLine()) == null) {
+                throw new IOException("End of stream reached");
+            }
             processLine(line);
             return tokens;
         } catch (IOException e) {
             return new ArrayList<>();
-        } finally {
-            tokens.clear();
         }
     }
 

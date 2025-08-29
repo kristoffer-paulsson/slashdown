@@ -1,6 +1,5 @@
 package org.slashdown;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class Main {
@@ -8,14 +7,13 @@ public class Main {
         // Example usage of the Tokenizer
         String exampleInput = "Hello, World!\nThis \\b\\i is a test.";
         InputStream inputStream = new java.io.ByteArrayInputStream(exampleInput.getBytes());
-        Tokenizer tokenizer = new Tokenizer(inputStream);
+        TokenIterator tokenIterator = new TokenIterator(new Tokenizer(inputStream));
         try {
-            tokenizer.tokenize();
-            // Print tokens for demonstration
-            for (Token token : tokenizer.getTokens()) {
+            while (tokenIterator.hasNext()) {
+                Token token = tokenIterator.next();
                 System.out.println(token);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
