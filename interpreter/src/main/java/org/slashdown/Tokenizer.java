@@ -35,6 +35,8 @@ public class Tokenizer {
 
     private List<Token> tokens = new ArrayList<>();
 
+    private int lineNumber = 0;
+
     public Tokenizer(InputStream input) {
         this.reader = new BufferedReader(new InputStreamReader(input));
 
@@ -66,6 +68,7 @@ public class Tokenizer {
     }
 
     private void processLine(String line) {
+        lineNumber++;
         int index = 0;
         while (index < line.length()) {
             boolean matched = false;
@@ -74,14 +77,14 @@ public class Tokenizer {
                     StringBuilder tokenValue = new StringBuilder();
                     int stop = scanner.scanUntil(line, index);
                     tokenValue.append(line, index, stop);
+                    tokens.add(new Token(scanner.getType(), tokenValue.toString(), lineNumber, index + 1));
                     index = stop;
-                    tokens.add(new Token(scanner.getType(), tokenValue.toString()));
                     matched = true;
                     break;
                 }
             }
             if (!matched) {
-                tokens.add((new Token(TokenType.UNKNOWN, String.valueOf(line.charAt(index)))));
+                tokens.add(new Token(TokenType.UNKNOWN, String.valueOf(line.charAt(index)), lineNumber, index + 1));
                 index++;
             }
         }

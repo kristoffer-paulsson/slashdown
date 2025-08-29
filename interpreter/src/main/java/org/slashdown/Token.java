@@ -21,7 +21,7 @@
  */
 package org.slashdown;
 
-public record Token(TokenType type, String value) {
+public record Token(TokenType type, String value, int line, int column) {
     public String toString() {
         if(type == TokenType.WHITESPACE) {
             return "Token: WHITESPACE";
