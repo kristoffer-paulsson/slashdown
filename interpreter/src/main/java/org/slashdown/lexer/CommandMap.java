@@ -21,6 +21,26 @@
  */
 package org.slashdown.lexer;
 
-public class CommandMap {
+import java.util.Hashtable;
+import java.util.Map;
 
+public class CommandMap {
+    public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
+
+    static {
+        new Heading1Command();
+                new Heading2Command();
+                new Heading3Command();
+                new Heading4Command();
+                new Heading5Command();
+                new Heading6Command();
+            /*new HorizontalRuleCommand(),
+            new BlockQuoteCommand(),
+            new OrderedListCommand(),
+            new UnorderedListCommand(),
+            new FencedCodeBlockCommand(),
+            new IndentedCodeBlockCommand(),
+            new TableCommand(),*/
+                new ParagraphCommand();
+    }
 }

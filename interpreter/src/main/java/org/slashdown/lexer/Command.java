@@ -22,4 +22,5 @@
 package org.slashdown.lexer;
 
 public interface Command {
+    public String getName();
 }

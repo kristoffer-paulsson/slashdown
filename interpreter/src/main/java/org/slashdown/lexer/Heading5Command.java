@@ -21,5 +21,10 @@
  */
 package org.slashdown.lexer;
 
-public class Heading5Command extends AbstractHeadlineCommand{
+public class Heading5Command extends AbstractHeadlineCommand {
+
+    @Override
+    public String getName() {
+        return "\\h5";
+    }
 }

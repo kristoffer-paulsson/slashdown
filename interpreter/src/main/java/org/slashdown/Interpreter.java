@@ -31,6 +31,8 @@ import java.util.List;
 
 public class Interpreter {
 
+
+
     private TokenIterator tokenIterator;
 
     private List<BlockElement> blocks = new ArrayList<>();
@@ -40,8 +42,15 @@ public class Interpreter {
         this.tokenIterator = tokenIterator;
     }
 
+    protected Token generateParagraphToken() {
+        return new Token(TokenType.COMMAND, "\n\n", 1, 1);
+    }
+
     public void interpret() {
-        int eolCount = 0;
+        Token firstToken = null;
+        if(tokenIterator.hasNext()) {
+            firstToken = tokenIterator.next();
+        }
 
         while (tokenIterator.hasNext()) {
             Token token = tokenIterator.next();

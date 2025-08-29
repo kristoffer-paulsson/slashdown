@@ -21,10 +21,10 @@
  */
 package org.slashdown.lexer;
 
-public class Heading6Command extends AbstractHeadlineCommand {
+public class ParagraphCommand extends AbstractBlockCommand {
 
     @Override
     public String getName() {
-        return "\\h6";
+        return "\\p";
     }
 }
