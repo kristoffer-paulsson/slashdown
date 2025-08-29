@@ -53,6 +53,18 @@ public class Tokenizer {
         }
     }
 
+    public List<Token> processNextLine() {
+        try {
+            String line = reader.readLine();
+            processLine(line);
+            return tokens;
+        } catch (IOException e) {
+            return new ArrayList<>();
+        } finally {
+            tokens.clear();
+        }
+    }
+
     private void processLine(String line) {
         int index = 0;
         while (index < line.length()) {
