@@ -38,12 +38,4 @@ public abstract class TokenScanner {
         }
         return i;
     }
-
-    public int scanWhile(String line, int start) {
-        int i = start;
-        while (i < line.length() && !isValid(line.charAt(i))) {
-            i++;
-        }
-        return i;
-    }
 }

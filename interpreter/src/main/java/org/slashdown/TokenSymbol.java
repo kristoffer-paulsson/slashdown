@@ -27,7 +27,7 @@ public class TokenSymbol extends TokenScanner {
     static public final Set<Character> CHARACTERS = Set.of(
             '.', ',', ';', ':', '!', '?', '-', '_',
             '(', ')', '[', ']', '{', '}', '<', '>',
-            '/', '\\', '\'', '\"', '@', '#', '$', '%',
+            '/', /*'\\',*/ '\'', '\"', '@', '#', '$', '%',
             '^', '&', '*', '~', '`', '+', '='
     );
 

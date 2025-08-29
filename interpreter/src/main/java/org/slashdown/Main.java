@@ -8,7 +8,7 @@ import java.io.InputStream;
 public class Main {
     public static void main(String[] args) {
         // Example usage of the Tokenizer
-        String exampleInput = "Hello, World!\nThis is a test.";
+        String exampleInput = "Hello, World!\nThis \\b is a test.";
         InputStream inputStream = new java.io.ByteArrayInputStream(exampleInput.getBytes());
         Tokenizer tokenizer = new Tokenizer(inputStream);
         try {
