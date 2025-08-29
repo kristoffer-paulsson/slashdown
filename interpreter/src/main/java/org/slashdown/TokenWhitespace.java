@@ -30,4 +30,8 @@ public class TokenWhitespace extends TokenScanner {
     public boolean isValid(char c) {
         return CHARACTERS.contains(c);
     }
+
+    public TokenType getType() {
+        return TokenType.WHITESPACE;
+    }
 }

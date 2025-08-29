@@ -23,6 +23,8 @@ package org.slashdown;
 
 public abstract class TokenScanner {
 
+    public abstract TokenType getType();
+
     public abstract boolean isValid(char c);
 
     public int scanUntil(String line, int start) {

@@ -26,4 +26,8 @@ public class TokenNonWhitespace extends TokenScanner {
     public boolean isValid(char c) {
         return !TokenWhitespace.CHARACTERS.contains(c);
     }
+
+    public TokenType getType() {
+        return TokenType.WHITESPACE;
+    }
 }
