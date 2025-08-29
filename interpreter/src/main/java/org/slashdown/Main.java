@@ -15,7 +15,7 @@ public class Main {
             tokenizer.tokenize();
             // Print tokens for demonstration
             for (Token token : tokenizer.getTokens()) {
-                System.out.println("Token: '" + token + "'");
+                System.out.println(token);
             }
         } catch (IOException e) {
             e.printStackTrace();

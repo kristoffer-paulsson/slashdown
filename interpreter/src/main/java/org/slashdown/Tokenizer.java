@@ -40,6 +40,7 @@ public class Tokenizer {
 
         // Initialize scanners
         scanners.add(new TokenWhitespace());
+        scanners.add(new TokenWord());
         scanners.add(new TokenSymbol());
         //scanners.add(new TokenNonWhitespace());
     }
@@ -56,23 +57,19 @@ public class Tokenizer {
         while (index < line.length()) {
             boolean matched = false;
             for (TokenScanner scanner : scanners) {
-                int startIndex = index;
                 if (scanner.isValid(line.charAt(index))) {
-                    index = scanner.scanUntil(line, index);
-                    tokens.add(new Token(scanner.getType(), line.substring(startIndex, index)));
+                    StringBuilder tokenValue = new StringBuilder();
+                    while (index < line.length() && scanner.isValid(line.charAt(index))) {
+                        tokenValue.append(line.charAt(index));
+                        index++;
+                    }
+                    tokens.add(new Token(scanner.getType(), tokenValue.toString()));
                     matched = true;
                     break;
-                } else {
-                    index = scanner.scanWhile(line, index);
-                    if (index > startIndex) {
-                        tokens.add(new Token(scanner.getType(), line.substring(startIndex, index)));
-                        matched = true;
-                        break;
-                    }
                 }
             }
             if (!matched) {
-                // If no scanner matched, move forward to avoid infinite loop
+                // If no scanner matched, move to the next character to avoid infinite loop
                 index++;
             }
         }

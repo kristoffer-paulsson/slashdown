@@ -38,6 +38,6 @@ public class TokenWord extends TokenScanner {
     }
 
     public TokenType getType() {
-        return TokenType.SYMBOL;
+        return TokenType.WORD;
     }
 }
