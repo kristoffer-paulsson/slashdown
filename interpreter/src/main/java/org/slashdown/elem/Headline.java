@@ -21,9 +21,17 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.lexer.AbstractBlockCommand;
+import org.slashdown.lexer.Command;
+import org.slashdown.lexer.CommandMap;
+import org.slashdown.lexer.CommandType;
 import org.slashdown.token.Token;
+import org.slashdown.token.TokenType;
 
 public class Headline extends Element{
+
+    private boolean firstBlockCommand = false;
+    private boolean firstEndOfLine = false;
 
     private final int level;
 
@@ -39,6 +47,23 @@ public class Headline extends Element{
 
     @Override
     public boolean offerToken(Token token) {
+        if(firstBlockCommand && firstEndOfLine) {
+            return false;
+        }
+
+        if(token.type() == TokenType.EOL) {
+            firstEndOfLine = true;
+        }
+        if(token.type() == TokenType.COMMAND) {
+            Command command = CommandMap.getCommand(token.value());
+            if(command != null && command.getType() == CommandType.BLOCK) {
+                if(firstBlockCommand) {
+                    throw new IllegalStateException("SYNTAX ERROR");
+                }
+                firstBlockCommand = true;
+            }
+        }
+
         tokens.add(token);
         return true;
     }

@@ -22,6 +22,7 @@
 package org.slashdown.elem;
 
 import org.slashdown.token.Token;
+import org.slashdown.token.TokenType;
 
 public class Paragraph extends Element {
 
@@ -33,6 +34,16 @@ public class Paragraph extends Element {
 
     @Override
     public boolean offerToken(Token token) {
+        if(eolCount >= 2) {
+            return false;
+        }
+
+        if(token.type() == TokenType.EOL) {
+            eolCount++;
+        } else if(token.type() != TokenType.WHITESPACE) {
+            eolCount = 0;
+        }
+
         tokens.add(token);
         return true;
     }
