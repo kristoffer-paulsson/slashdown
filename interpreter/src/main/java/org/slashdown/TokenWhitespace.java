@@ -21,6 +21,10 @@
  */
 package org.slashdown;
 
+import java.util.Set;
+
 public class TokenWhitespace implements TokenScanner {
+
+    static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n');
 
 }
