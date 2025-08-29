@@ -1,17 +1,24 @@
 package org.slashdown;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Example usage of the Tokenizer
+        String exampleInput = "Hello, World!\nThis is a test.";
+        InputStream inputStream = new java.io.ByteArrayInputStream(exampleInput.getBytes());
+        Tokenizer tokenizer = new Tokenizer(inputStream);
+        try {
+            tokenizer.tokenize();
+            // Print tokens for demonstration
+            for (String token : tokenizer.getTokens()) {
+                System.out.println("Token: '" + token + "'");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
