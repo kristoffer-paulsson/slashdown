@@ -24,4 +24,8 @@ package org.slashdown;
 public interface TokenScanner {
 
     public boolean isValid(char c);
+
+    public int scanUntil(String line, int start);
+
+    public int scanWhile(String line, int start);
 }

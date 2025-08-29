@@ -25,10 +25,25 @@ import java.util.Set;
 
 public class TokenWhitespace implements TokenScanner {
 
-    static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n');
+    static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n', '\f');
 
     public boolean isValid(char c) {
         return CHARACTERS.contains(c);
     }
 
+    public int scanUntil(String line, int start) {
+        int i = start;
+        while (i < line.length() && isValid(line.charAt(i))) {
+            i++;
+        }
+        return i;
+    }
+
+    public int scanWhile(String line, int start) {
+        int i = start;
+        while (i < line.length() && !isValid(line.charAt(i))) {
+            i++;
+        }
+        return i;
+    }
 }
