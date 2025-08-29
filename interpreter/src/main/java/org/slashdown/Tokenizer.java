@@ -40,7 +40,7 @@ public class Tokenizer {
 
         // Initialize scanners
         scanners.add(new TokenWhitespace());
-        scanners.add(new TokenNonWhitespace());
+        //scanners.add(new TokenNonWhitespace());
     }
 
     public void tokenize() throws IOException {
