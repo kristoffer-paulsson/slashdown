@@ -22,4 +22,10 @@
 package org.slashdown;
 
 public record Token(TokenType type, String value) {
+    public String toString() {
+        if(type == TokenType.WHITESPACE) {
+            return "Token: WHITESPACE";
+        }
+        return String.format("Token: %s=\"%s\"", type, value);
+    }
 }
