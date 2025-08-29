@@ -40,6 +40,7 @@ public class Tokenizer {
 
         // Initialize scanners
         scanners.add(new TokenWhitespace());
+        scanners.add(new TokenSymbol());
         //scanners.add(new TokenNonWhitespace());
     }
 
