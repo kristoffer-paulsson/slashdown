@@ -23,4 +23,5 @@ package org.slashdown;
 
 public interface TokenScanner {
 
+    public boolean isValid(char c);
 }

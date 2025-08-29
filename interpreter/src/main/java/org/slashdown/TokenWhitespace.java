@@ -27,4 +27,8 @@ public class TokenWhitespace implements TokenScanner {
 
     static public final Set<Character> CHARACTERS = Set.of(' ', '\t', '\r', '\n');
 
+    public boolean isValid(char c) {
+        return CHARACTERS.contains(c);
+    }
+
 }
