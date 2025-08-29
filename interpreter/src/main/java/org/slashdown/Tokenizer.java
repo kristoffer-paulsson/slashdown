@@ -33,11 +33,14 @@ public class Tokenizer {
 
     private List<TokenScanner> scanners = new ArrayList<>();
 
+    private List<String> tokens = new ArrayList<>();
+
     public Tokenizer(InputStream input) {
         this.reader = new BufferedReader(new InputStreamReader(input));
 
         // Initialize scanners
         scanners.add(new TokenWhitespace());
+        scanners.add(new TokenNonWhitespace());
     }
 
     public void tokenize() throws IOException {
@@ -48,7 +51,29 @@ public class Tokenizer {
     }
 
     private void processLine(String line) {
-        // Tokenization logic goes here
-        System.out.println("Processing: " + line);
+        int index = 0;
+        while (index < line.length()) {
+            boolean matched = false;
+            for (TokenScanner scanner : scanners) {
+                int startIndex = index;
+                if (scanner.isValid(line.charAt(index))) {
+                    index = scanner.scanUntil(line, index);
+                    tokens.add(line.substring(startIndex, index));
+                    matched = true;
+                    break;
+                } else {
+                    index = scanner.scanWhile(line, index);
+                    if (index > startIndex) {
+                        tokens.add(line.substring(startIndex, index));
+                        matched = true;
+                        break;
+                    }
+                }
+            }
+            if (!matched) {
+                // If no scanner matched, move forward to avoid infinite loop
+                index++;
+            }
+        }
     }
 }
