@@ -59,10 +59,9 @@ public class Tokenizer {
             for (TokenScanner scanner : scanners) {
                 if (scanner.isValid(line.charAt(index))) {
                     StringBuilder tokenValue = new StringBuilder();
-                    while (index < line.length() && scanner.isValid(line.charAt(index))) {
-                        tokenValue.append(line.charAt(index));
-                        index++;
-                    }
+                    int stop = scanner.scanUntil(line, index);
+                    tokenValue.append(line, index, stop);
+                    index = stop;
                     tokens.add(new Token(scanner.getType(), tokenValue.toString()));
                     matched = true;
                     break;
