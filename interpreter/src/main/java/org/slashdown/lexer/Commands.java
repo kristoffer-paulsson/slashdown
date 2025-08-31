@@ -28,6 +28,7 @@ import org.slashdown.token.TokenType;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public class Commands {
     public static Command getCommand(String name) {
@@ -50,11 +51,14 @@ public class Commands {
         return command;
     }
 
-    public static int countCommands(List<Token> tokenList) {
-        AtomicInteger count = new AtomicInteger(0);
-        tokenList.forEach((t) -> {
-            if(t.type() == TokenType.COMMAND) { count.incrementAndGet(); }
-        });
-        return count.get();
+    public static void isBlock(Command command, Consumer<AbstractBlockCommand<?>> action) {
+        if(Objects.nonNull(command) && command.getType() == CommandType.BLOCK) {
+            action.accept((AbstractBlockCommand<?>) command);
+        }
+    }
+
+    public static boolean distinguishBlock(Token token) {
+        Command command = getCommand(token.value());
+        return Objects.nonNull(command) && command.getType() == CommandType.BLOCK;
     }
 }

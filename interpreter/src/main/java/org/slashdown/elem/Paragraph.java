@@ -21,6 +21,7 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.lexer.Commands;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
@@ -34,7 +35,7 @@ public class Paragraph extends Element {
 
     @Override
     public boolean offerToken(Token token) {
-        if(eolCount >= 2) {
+        if(eolCount >= 2 || Commands.distinguishBlock(token)) {
             return false;
         }
 

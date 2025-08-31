@@ -21,6 +21,7 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.SyntaxError;
 import org.slashdown.lexer.Command;
 import org.slashdown.lexer.CommandMap;
 import org.slashdown.lexer.CommandType;
@@ -48,22 +49,18 @@ public class Headline extends Element{
      * */
     @Override
     public boolean offerToken(Token token) {
+        System.out.println(token);
         if(eolReached) {
             return false;
-        }
-
-        if(token.type() == TokenType.EOL) {
+        } else if(token.type() == TokenType.EOL) {
             eolReached = true;
-        }
-
-
-        if(token.type() == TokenType.COMMAND) {
-            Command command = Commands.getCommand(token.value());
-            if(command != null && command.getType() == CommandType.BLOCK && tokens.isEmpty()) {
-                firstBlockCommand = true;
-            } else {
-                throw new IllegalStateException("SYNTAX ERROR");
-            }
+        } else if(token.type() == TokenType.COMMAND) {
+            Commands.isBlock(Commands.commandFromToken(token), (c) -> {
+                if(!tokens.isEmpty()) {
+                    System.out.println(c);
+                    SyntaxError.raise("Illegal block command", token);
+                }
+            });
         }
 
         tokens.add(token);

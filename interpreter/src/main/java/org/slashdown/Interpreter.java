@@ -56,10 +56,13 @@ public class Interpreter {
                 }
             }
 
-            if(!currentBlock.offerToken(token)) {
-                blocks.add(currentBlock);
-                currentBlock = new Paragraph();
-                currentBlock.offerToken(token);
+            while (tokenIterator.hasNext()) {
+                if(!currentBlock.offerToken(token)) {
+                    blocks.add(currentBlock);
+                    currentBlock = new Paragraph();
+                    currentBlock.offerToken(token);
+                    break;
+                }
             }
         }
     }
