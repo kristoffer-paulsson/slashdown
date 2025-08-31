@@ -57,6 +57,12 @@ public class Commands {
         }
     }
 
+    public static void isInline(Command command, Consumer<AbstractInlineCommand> action) {
+        if(Objects.nonNull(command) && command.getType() == CommandType.INLINE) {
+            action.accept((AbstractInlineCommand) command);
+        }
+    }
+
     public static boolean distinguishBlock(Token token) {
         Command command = getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.BLOCK;

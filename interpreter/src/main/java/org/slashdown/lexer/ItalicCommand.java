@@ -19,34 +19,12 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.elem;
+package org.slashdown.lexer;
 
-import org.slashdown.lexer.Commands;
-import org.slashdown.token.Token;
-import org.slashdown.token.TokenType;
-
-public class Paragraph extends Element {
-
-    private int eolCount = 0;
-
-    public Paragraph() {
-        System.out.println("NEW PARAGRAPH");
-    }
+public class ItalicCommand extends AbstractInlineCommand {
 
     @Override
-    public boolean offerTokenImpl(Token token) {
-        if(eolCount >= 2 || Commands.distinguishBlock(token)) {
-            close();
-            return false;
-        }
-
-        if(token.type() == TokenType.EOL) {
-            eolCount++;
-        } else if(token.type() != TokenType.WHITESPACE) {
-            eolCount = 0;
-        }
-
-        tokens.add(token);
-        return true;
+    public String getName() {
+        return "\\i";
     }
 }

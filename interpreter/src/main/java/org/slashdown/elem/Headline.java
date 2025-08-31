@@ -45,10 +45,8 @@ public class Headline extends Element{
      *
      * */
     @Override
-    public boolean offerToken(Token token) {
-        if(!isOpen()) {
-            return false;
-        } else if(token.type() == TokenType.EOL) {
+    public boolean offerTokenImpl(Token token) {
+        if(token.type() == TokenType.EOL) {
             // Close headline block on first EOL
             close();
         } else if(token.type() == TokenType.COMMAND) {

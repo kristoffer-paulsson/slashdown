@@ -52,7 +52,14 @@ public abstract class Element {
         closed = true;
     }
 
-    public abstract boolean offerToken(Token token);
+    public abstract boolean offerTokenImpl(Token token);
+
+    public boolean offerToken(Token token) {
+        if(!isOpen()) {
+            return false;
+        }
+        return offerTokenImpl(token);
+    }
 
     public boolean isVisible() {
         boolean visible = false;

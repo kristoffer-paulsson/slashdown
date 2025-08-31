@@ -21,12 +21,8 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.SyntaxError;
-import org.slashdown.token.Token;
-
 import java.util.Hashtable;
-import java.util.Map;
-import java.util.Objects;
+
 
 public class CommandMap {
     public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
@@ -45,11 +41,11 @@ public class CommandMap {
             new FencedCodeBlockCommand(),
             new IndentedCodeBlockCommand(),
             new TableCommand(),*/
-        registerCommand(new ParagraphCommand())
+        registerCommand(new ParagraphCommand());
             /*new LineBreakCommand(),
-            new BoldCommand(),
-            new ItalicCommand(),
-            new StrikethroughCommand(),
+            new BoldCommand(),*/
+        registerCommand(new ItalicCommand());
+            /*new StrikethroughCommand(),
             new InlineCodeCommand(),
             new LinkCommand(),
             new ImageCommand(),
@@ -57,6 +53,10 @@ public class CommandMap {
     }
 
     public static void registerCommand(Command command) {
-        COMMANDS.put(command.getName(), command);
+        Commands.isBlock(command, (c) -> COMMANDS.put(c.getName(), c));
+        Commands.isInline(command, (c) -> {
+            COMMANDS.put(c.getName(), c);
+            COMMANDS.put(c.getName() + '~', c);
+        });
     }
 }
