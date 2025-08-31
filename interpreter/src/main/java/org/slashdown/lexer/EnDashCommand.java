@@ -25,6 +25,6 @@ public class EnDashCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "en";
+        return "endash";
     }
 }

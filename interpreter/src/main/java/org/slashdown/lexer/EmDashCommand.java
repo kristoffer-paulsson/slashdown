@@ -25,6 +25,6 @@ public class EmDashCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "em";
+        return "emdash";
     }
 }
