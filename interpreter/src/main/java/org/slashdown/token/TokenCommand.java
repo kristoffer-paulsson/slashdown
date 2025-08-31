@@ -21,7 +21,14 @@
  */
 package org.slashdown.token;
 
+import java.util.Set;
+
 public class TokenCommand extends TokenScanner {
+
+    static public final Set<Character> HEXADECIMALS = Set.of(
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    );
 
     public boolean initialValid(char c) {
         return c == '\\';
@@ -29,6 +36,10 @@ public class TokenCommand extends TokenScanner {
 
     public boolean singleValid(char c) {
         return TokenSymbol.CHARACTERS.contains(c);
+    }
+
+    public boolean hexValid(char c) {
+        return HEXADECIMALS.contains(c);
     }
 
     public boolean finalValid(char c) {
