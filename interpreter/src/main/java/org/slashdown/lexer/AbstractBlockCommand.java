@@ -21,6 +21,7 @@
  */
 package org.slashdown.lexer;
 
+import org.slashdown.SyntaxError;
 import org.slashdown.elem.Element;
 import org.slashdown.token.Token;
 
@@ -44,5 +45,12 @@ public abstract class AbstractBlockCommand<E extends Element> implements Command
         return CommandType.BLOCK;
     }
 
-    public abstract E generateElement();
+    protected abstract E generateElementImpl(Token token);
+
+    public E generateElement(Token token) {
+        if(token.column() > 1) {
+            SyntaxError.raise("Block command not at beginning of line", token);
+        }
+        return generateElementImpl(token);
+    }
 }

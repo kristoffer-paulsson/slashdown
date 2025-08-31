@@ -21,8 +21,8 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.elem.Headline;
 import org.slashdown.elem.Paragraph;
+import org.slashdown.token.Token;
 
 public class ParagraphCommand extends AbstractBlockCommand<Paragraph> {
 
@@ -32,7 +32,7 @@ public class ParagraphCommand extends AbstractBlockCommand<Paragraph> {
     }
 
     @Override
-    public Paragraph generateElement() {
+    public Paragraph generateElementImpl(Token token) {
         return new Paragraph();
     }
 }

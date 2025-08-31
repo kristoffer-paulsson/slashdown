@@ -21,13 +21,15 @@
  */
 package org.slashdown.lexer;
 
+import org.slashdown.SyntaxError;
 import org.slashdown.elem.Headline;
+import org.slashdown.token.Token;
 
 public abstract class AbstractHeadlineCommand extends AbstractBlockCommand<Headline> {
 
     public abstract int getLevel();
 
-    public Headline generateElement() {
+    public Headline generateElementImpl(Token token) {
         return new Headline(getLevel());
     }
 }

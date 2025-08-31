@@ -51,7 +51,7 @@ public class Interpreter {
                 if(Commands.distinguishBlock(token)) {
                     AbstractBlockCommand<?> block = Commands.blockCommandFromToken(token);
                     blocks.add(currentBlock);
-                    currentBlock = block.generateElement();
+                    currentBlock = block.generateElement(token);
                 } else {
                     blocks.add(currentBlock);
                     currentBlock = new Paragraph();
