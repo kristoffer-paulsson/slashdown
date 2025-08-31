@@ -2,7 +2,7 @@
 \h1 Lorem Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut
 tincidunt leo, non pellentesque diam. In viverra faucibus turpis et
-accumsan. In in mauris tristique, fringilla ipsum ut, facilisis ligula.
+accumsan. In in mauris tristique, \u fringilla\u~ ipsum ut, facilisis ligula.
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla
 elementum, tellus nec lobortis hendrerit, metus ligula efficitur lacus,
 feugiat auctor tortor ante at nisi. Vivamus \i viverra \b sapien a\b~ dolor\i~
@@ -13,7 +13,7 @@ quam. Integer et odio lorem. In in auctor sem, et interdum erat.
 Praesent gravida molestie augue, non vestibulum ex aliquam et. Praesent
 ante felis, porta vitae sollicitudin volutpat, cursus nec diam. Donec
 finibus augue ante, sit amet commodo eros efficitur non. Aliquam gravida
-a lorem nec viverra. \"Class aptent taciti sociosqu\" ad litora torquent per
+a lorem nec viverra. \"Class aptent taciti sociosqu\"~ ad litora torquent per
 conubia nostra, per inceptos himenaeos. Aliquam tempor lacus nec
 porttitor euismod. Etiam commodo vitae nulla sed sagittis. Cras laoreet
 nisl vitae dolor hendrerit congue. Nullam quis ex ullamcorper, mollis
@@ -33,7 +33,7 @@ Pellentesque malesuada dui augue, quis commodo augue posuere nec.
 Praesent tempus purus quis mi rhoncus, et volutpat erat dapibus. Donec
 at nulla sed tellus efficitur eleifend. Quisque finibus tellus sit amet
 ex ornare euismod. Phasellus cursus rhoncus tellus quis malesuada.
-Curabitur at fermentum urna, at faucibus turpis.\\
+Curabitur at fermentum urna, at faucibus turpis.
 
 Aenean ornare odio tempus risus placerat maximus. Lorem ipsum dolor sit
 amet, consectetur adipiscing elit. Nullam vestibulum enim ac justo

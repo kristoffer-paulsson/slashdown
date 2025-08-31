@@ -28,11 +28,11 @@ public class TokenCommand extends TokenScanner {
     }
 
     public boolean singleValid(char c) {
-        return c == '\'' || c == '\"';
+        return TokenSymbol.CHARACTERS.contains(c);
     }
 
     public boolean finalValid(char c) {
-        return c == '~';
+        return c == '~' || c == '*';
     }
 
     public boolean isValid(char c) {
@@ -46,15 +46,21 @@ public class TokenCommand extends TokenScanner {
         } else {
             return start;
         }
+        // Picking up single sign (not letter) commands
         if (i < line.length() && singleValid(line.charAt(i))) {
             i++;
+            // Including inline finalizer
+            if(i < line.length() && finalValid(line.charAt(i))) {
+                i++;
+            }
             return i;
-        }
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
-        }
-        if(i < line.length() && finalValid(line.charAt(i))) {
-            i++;
+        } else {
+            while (i < line.length() && isValid(line.charAt(i))) {
+                i++;
+            }
+            if(i < line.length() && finalValid(line.charAt(i))) {
+                i++;
+            }
         }
         return i;
     }
