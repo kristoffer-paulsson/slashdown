@@ -1,5 +1,5 @@
 
-\h1 Lorem \h2 Ipsum
+\h1 Lorem Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut
 tincidunt leo, non pellentesque diam. In viverra faucibus turpis et
 accumsan. In in mauris tristique, fringilla ipsum ut, facilisis ligula.

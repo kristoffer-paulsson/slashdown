@@ -43,12 +43,12 @@ public class Commands {
         return command;
     }
 
-    public static Command blockCommandFromToken(Token token){
+    public static AbstractBlockCommand<?> blockCommandFromToken(Token token){
         Command command = commandFromToken(token);
         if(command.getType() != CommandType.BLOCK) {
             SyntaxError.raise("Not a block command", token);
         }
-        return command;
+        return (AbstractBlockCommand<?>) command;
     }
 
     public static void isBlock(Command command, Consumer<AbstractBlockCommand<?>> action) {

@@ -47,21 +47,17 @@ public class Interpreter {
         while (tokenIterator.hasNext()) {
             Token token = tokenIterator.next();
 
-            if(token.type() == TokenType.COMMAND) {
-                Command command = Commands.commandFromToken(token);
-                if (command.getType() == CommandType.BLOCK) {
-                    AbstractBlockCommand block = (AbstractBlockCommand) command;
+            if(!currentBlock.offerToken(token)) {
+                if(Commands.distinguishBlock(token)) {
+                    AbstractBlockCommand<?> block = Commands.blockCommandFromToken(token);
                     blocks.add(currentBlock);
                     currentBlock = block.generateElement();
-                }
-            }
-
-            while (tokenIterator.hasNext()) {
-                if(!currentBlock.offerToken(token)) {
+                } else {
                     blocks.add(currentBlock);
                     currentBlock = new Paragraph();
-                    currentBlock.offerToken(token);
-                    break;
+                }
+                if(!currentBlock.offerToken(token)) {
+                    SyntaxError.raise("Unhandled token", token);
                 }
             }
         }

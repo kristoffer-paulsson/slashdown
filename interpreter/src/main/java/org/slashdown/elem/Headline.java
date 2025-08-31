@@ -49,7 +49,6 @@ public class Headline extends Element{
      * */
     @Override
     public boolean offerToken(Token token) {
-        System.out.println(token);
         if(eolReached) {
             return false;
         } else if(token.type() == TokenType.EOL) {
@@ -57,7 +56,6 @@ public class Headline extends Element{
         } else if(token.type() == TokenType.COMMAND) {
             Commands.isBlock(Commands.commandFromToken(token), (c) -> {
                 if(!tokens.isEmpty()) {
-                    System.out.println(c);
                     SyntaxError.raise("Illegal block command", token);
                 }
             });
