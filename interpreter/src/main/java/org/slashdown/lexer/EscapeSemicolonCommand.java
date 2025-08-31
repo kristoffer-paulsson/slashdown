@@ -21,15 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public class BackSlashCommand extends AbstractSimpleCommand {
+public class EscapeSemicolonCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "slash";
+        return "semi";
     }
 
     @Override
     public String getSymbol() {
-        return "\\";
+        return ";";
     }
 }

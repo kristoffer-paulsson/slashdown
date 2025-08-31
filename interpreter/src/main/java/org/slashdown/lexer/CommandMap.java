@@ -30,7 +30,13 @@ public class CommandMap {
     public static final Hashtable<String, String> TAGS = new Hashtable<>();
 
     static {
-        registerCommand(new BackSlashCommand());
+        // Special escape characters
+        registerCommand(new EscapeBackslashCommand());
+        registerCommand(new EscapeTildeCommand());
+        registerCommand(new EscapeAsteriskCommand());
+        registerCommand(new EscapeSemicolonCommand());
+
+        // Special formatting commands
         registerCommand(new SoftHyphenCommand());
         registerCommand(new NonBreakingCommand());
         registerCommand(new NewLineCommand());
