@@ -23,10 +23,7 @@ package org.slashdown;
 
 import org.slashdown.elem.Element;
 import org.slashdown.elem.Paragraph;
-import org.slashdown.lexer.AbstractBlockCommand;
-import org.slashdown.lexer.Command;
-import org.slashdown.lexer.CommandMap;
-import org.slashdown.lexer.CommandType;
+import org.slashdown.lexer.*;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenIterator;
 import org.slashdown.token.TokenType;
@@ -51,10 +48,8 @@ public class Interpreter {
             Token token = tokenIterator.next();
 
             if(token.type() == TokenType.COMMAND) {
-                Command command = CommandMap.getCommand(token.value());
-                if(command == null) {
-                    SyntaxError.raise("Invalid command", token);
-                } else if (command.getType() == CommandType.BLOCK) {
+                Command command = Commands.commandFromToken(token);
+                if (command.getType() == CommandType.BLOCK) {
                     AbstractBlockCommand block = (AbstractBlockCommand) command;
                     blocks.add(currentBlock);
                     currentBlock = block.generateElement();

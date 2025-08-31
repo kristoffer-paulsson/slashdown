@@ -19,54 +19,42 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.elem;
+package org.slashdown.lexer;
 
-import org.slashdown.lexer.Command;
-import org.slashdown.lexer.CommandMap;
-import org.slashdown.lexer.CommandType;
-import org.slashdown.lexer.Commands;
+import org.slashdown.SyntaxError;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
-public class Headline extends Element{
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    private boolean eolReached = false;
-
-    private final int level;
-
-    public Headline(int level) {
-        this.level = level;
-        System.out.println("NEW HEADLINE " + level);
+public class Commands {
+    public static Command getCommand(String name) {
+        return CommandMap.COMMANDS.get(name);
     }
 
-    public int getLevel() {
-        return level;
+    public static Command commandFromToken(Token token){
+        Command command = getCommand(token.value());
+        if(Objects.isNull(command)) {
+            SyntaxError.raise("Invalid command", token);
+        }
+        return command;
     }
 
-    /**
-     *
-     * */
-    @Override
-    public boolean offerToken(Token token) {
-        if(eolReached) {
-            return false;
+    public static Command blockCommandFromToken(Token token){
+        Command command = commandFromToken(token);
+        if(command.getType() != CommandType.BLOCK) {
+            SyntaxError.raise("Not a block command", token);
         }
+        return command;
+    }
 
-        if(token.type() == TokenType.EOL) {
-            eolReached = true;
-        }
-
-
-        if(token.type() == TokenType.COMMAND) {
-            Command command = Commands.getCommand(token.value());
-            if(command != null && command.getType() == CommandType.BLOCK && tokens.isEmpty()) {
-                firstBlockCommand = true;
-            } else {
-                throw new IllegalStateException("SYNTAX ERROR");
-            }
-        }
-
-        tokens.add(token);
-        return true;
+    public static int countCommands(List<Token> tokenList) {
+        AtomicInteger count = new AtomicInteger(0);
+        tokenList.forEach((t) -> {
+            if(t.type() == TokenType.COMMAND) { count.incrementAndGet(); }
+        });
+        return count.get();
     }
 }

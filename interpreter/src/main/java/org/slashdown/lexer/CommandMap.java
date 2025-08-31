@@ -59,24 +59,4 @@ public class CommandMap {
     public static void registerCommand(Command command) {
         COMMANDS.put(command.getName(), command);
     }
-
-    public static Command getCommand(String name) {
-        return COMMANDS.get(name);
-    }
-
-    public static Command commandFromToken(Token token){
-        Command command = getCommand(token.value());
-        if(Objects.isNull(command)) {
-            SyntaxError.raise("Invalid command", token);
-        }
-        return command;
-    }
-
-    public static Command blockCommandFromToken(Token token){
-        Command command = commandFromToken(token);
-        if(command.getType() != CommandType.BLOCK) {
-            SyntaxError.raise("Not a block command", token);
-        }
-        return command;
-    }
 }
