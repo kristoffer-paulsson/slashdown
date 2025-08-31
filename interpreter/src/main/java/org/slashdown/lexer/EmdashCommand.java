@@ -21,22 +21,10 @@
  */
 package org.slashdown.lexer;
 
-public abstract class AbstractSimpleCommand implements Command {
+public class EmdashCommand extends AbstractSimpleCommand {
 
     @Override
-    public abstract String getName();
-
-    @Override
-    public CommandType getType() {
-        return CommandType.SIMPLE;
+    public String getName() {
+        return "em";
     }
-
-    public String getSymbol() {
-        throw new IllegalStateException("No symbol allowed");
-    }
-
-    public String getSymbolTag() {
-        return '\\' + getSymbol();
-    }
-
 }

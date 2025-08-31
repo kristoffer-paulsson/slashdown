@@ -30,6 +30,14 @@ public class CommandMap {
     public static final Hashtable<String, String> TAGS = new Hashtable<>();
 
     static {
+        registerCommand(new BackslashCommand());
+        registerCommand(new SofthyphenCommand());
+        registerCommand(new NonbreakingCommand());
+        registerCommand(new NewlineCommand());
+        registerCommand(new EllipsisCommand());
+        registerCommand(new EndashCommand());
+        registerCommand(new EmdashCommand());
+
         registerCommand(new Heading1Command());
         registerCommand(new Heading2Command());
         registerCommand(new Heading3Command());
@@ -51,6 +59,7 @@ public class CommandMap {
         registerCommand(new StrikethroughCommand());
         registerCommand(new SingleQuoteCommand());
         registerCommand(new DoubleQuoteCommand());
+        registerCommand(new SuperscriptCommand());
             /*new InlineCodeCommand(),
             new LinkCommand(),
             new ImageCommand(),
@@ -66,6 +75,15 @@ public class CommandMap {
             COMMANDS.put(c.getName(), c);
             TAGS.put(c.getTag(), c.getName());
             TAGS.put(c.getClosingTag(), c.getName());
+        });
+        Commands.isSimple(command, (c) -> {
+            COMMANDS.put(c.getName(), c);
+            TAGS.put(c.getTag(), c.getName());
+            try {
+                TAGS.put(c.getTag(), c.getName());
+            } catch (IllegalStateException e) {
+                // Pass
+            }
         });
     }
 }

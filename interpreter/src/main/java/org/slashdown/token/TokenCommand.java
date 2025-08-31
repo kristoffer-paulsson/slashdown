@@ -43,25 +43,30 @@ public class TokenCommand extends TokenScanner {
         int i = start;
         if (i < line.length() && initialValid(line.charAt(i))) {
             i++;
-        } else {
-            return start;
         }
-        // Picking up single sign (not letter) commands
-        if (i < line.length() && singleValid(line.charAt(i))) {
+
+        if(i < line.length() && line.charAt(i) == '\\'){
+            // Allowing escaping of backslash \\
+            i++;
+        } else if (i < line.length() && singleValid(line.charAt(i))) {
+            // Picking up single sign (not letter) commands
             i++;
             // Including inline finalizer
             if(i < line.length() && finalValid(line.charAt(i))) {
                 i++;
             }
             return i;
-        } else {
+        } else if(i < line.length() && isValid(line.charAt(i))) {
+            i++;
             while (i < line.length() && isValid(line.charAt(i))) {
                 i++;
             }
             if(i < line.length() && finalValid(line.charAt(i))) {
                 i++;
             }
+            return i;
         }
+
         return i;
     }
 

@@ -21,22 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public abstract class AbstractSimpleCommand implements Command {
+public class BackslashCommand extends AbstractSimpleCommand {
 
     @Override
-    public abstract String getName();
-
-    @Override
-    public CommandType getType() {
-        return CommandType.SIMPLE;
+    public String getName() {
+        return "slash";
     }
 
+    @Override
     public String getSymbol() {
-        throw new IllegalStateException("No symbol allowed");
+        return "\\";
     }
-
-    public String getSymbolTag() {
-        return '\\' + getSymbol();
-    }
-
 }

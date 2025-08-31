@@ -56,6 +56,14 @@ public class Commands {
         return (AbstractInlineCommand) command;
     }
 
+    public static AbstractSimpleCommand simpleCommandFromToken(Token token){
+        Command command = commandFromToken(token);
+        if(command.getType() != CommandType.SIMPLE) {
+            SyntaxError.raise("Not a simple command", token);
+        }
+        return (AbstractSimpleCommand) command;
+    }
+
     public static void isBlock(Command command, Consumer<AbstractBlockCommand<?>> action) {
         if(Objects.nonNull(command) && command.getType() == CommandType.BLOCK) {
             action.accept((AbstractBlockCommand<?>) command);
@@ -68,6 +76,12 @@ public class Commands {
         }
     }
 
+    public static void isSimple(Command command, Consumer<AbstractSimpleCommand> action) {
+        if(Objects.nonNull(command) && command.getType() == CommandType.SIMPLE) {
+            action.accept((AbstractSimpleCommand) command);
+        }
+    }
+
     public static boolean distinguishBlock(Token token) {
         Command command = getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.BLOCK;
@@ -76,5 +90,10 @@ public class Commands {
     public static boolean distinguishInline(Token token) {
         Command command = getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.INLINE;
+    }
+
+    public static boolean distinguishSimple(Token token) {
+        Command command = getCommand(token.value());
+        return Objects.nonNull(command) && command.getType() == CommandType.SIMPLE;
     }
 }
