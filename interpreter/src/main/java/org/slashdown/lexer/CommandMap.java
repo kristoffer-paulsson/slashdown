@@ -30,13 +30,13 @@ public class CommandMap {
     public static final Hashtable<String, String> TAGS = new Hashtable<>();
 
     static {
-        registerCommand(new BackslashCommand());
-        registerCommand(new SofthyphenCommand());
-        registerCommand(new NonbreakingCommand());
-        registerCommand(new NewlineCommand());
+        registerCommand(new BackSlashCommand());
+        registerCommand(new SoftHyphenCommand());
+        registerCommand(new NonBreakingCommand());
+        registerCommand(new NewLineCommand());
         registerCommand(new EllipsisCommand());
-        registerCommand(new EndashCommand());
-        registerCommand(new EmdashCommand());
+        registerCommand(new EnDashCommand());
+        registerCommand(new EmDashCommand());
 
         registerCommand(new Heading1Command());
         registerCommand(new Heading2Command());
@@ -59,7 +59,7 @@ public class CommandMap {
         registerCommand(new StrikethroughCommand());
         registerCommand(new SingleQuoteCommand());
         registerCommand(new DoubleQuoteCommand());
-        registerCommand(new SuperscriptCommand());
+        registerCommand(new SuperScriptCommand());
             /*new InlineCodeCommand(),
             new LinkCommand(),
             new ImageCommand(),

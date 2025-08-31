@@ -21,10 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public class SuperscriptCommand extends AbstractInlineCommand {
+public class SoftHyphenCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "^";
+        return "shy";
+    }
+
+    @Override
+    public String getSymbol() {
+        return "-";
     }
 }

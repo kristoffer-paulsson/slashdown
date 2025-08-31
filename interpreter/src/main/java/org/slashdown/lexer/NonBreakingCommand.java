@@ -21,7 +21,7 @@
  */
 package org.slashdown.lexer;
 
-public class NonbreakingCommand extends AbstractSimpleCommand {
+public class NonBreakingCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {

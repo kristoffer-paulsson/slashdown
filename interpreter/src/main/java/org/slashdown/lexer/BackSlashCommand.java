@@ -21,10 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public class NewlineCommand extends AbstractSimpleCommand {
+public class BackSlashCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "nl";
+        return "slash";
+    }
+
+    @Override
+    public String getSymbol() {
+        return "\\";
     }
 }

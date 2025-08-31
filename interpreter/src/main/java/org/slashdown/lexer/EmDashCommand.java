@@ -21,10 +21,10 @@
  */
 package org.slashdown.lexer;
 
-public class EndashCommand extends AbstractSimpleCommand {
+public class EmDashCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "en";
+        return "em";
     }
 }
