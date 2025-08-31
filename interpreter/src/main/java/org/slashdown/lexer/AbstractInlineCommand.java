@@ -21,7 +21,13 @@
  */
 package org.slashdown.lexer;
 
-public enum CommandType {
-    BLOCK,
-    INLINE;
+public abstract class AbstractInlineCommand implements Command {
+
+    @Override
+    public abstract String getName();
+
+    @Override
+    public CommandType getType() {
+        return CommandType.INLINE;
+    }
 }

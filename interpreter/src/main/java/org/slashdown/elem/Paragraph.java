@@ -35,7 +35,12 @@ public class Paragraph extends Element {
 
     @Override
     public boolean offerToken(Token token) {
+        if(!isOpen()) {
+            return false;
+        }
+
         if(eolCount >= 2 || Commands.distinguishBlock(token)) {
+            close();
             return false;
         }
 

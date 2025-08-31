@@ -21,6 +21,7 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.lexer.AbstractInlineCommand;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
@@ -28,7 +29,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Element {
+
+    protected List<AbstractInlineCommand> inlineCommands = new ArrayList<>();
+
     protected List<Token> tokens = new ArrayList<>();
+
+    protected void openInline(Token token) {
+
+    }
+
+    protected void closeInline(Token token) {
+
+    }
+
+    protected boolean closed = false;
+
+    public boolean isOpen() {
+        return !closed;
+    }
+
+    public void close() {
+        closed = true;
+    }
 
     public abstract boolean offerToken(Token token);
 

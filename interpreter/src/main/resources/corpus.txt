@@ -4,7 +4,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut
 tincidunt leo, non pellentesque diam. In viverra faucibus turpis et
 accumsan. In in mauris tristique, fringilla ipsum ut, facilisis ligula.
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla
-elementum, tellus nec lobortis \h2 hendrerit, metus ligula efficitur lacus,
+elementum, tellus nec lobortis hendrerit, metus ligula efficitur lacus,
 feugiat auctor tortor ante at nisi. Vivamus viverra sapien a dolor
 venenatis iaculis. Nullam suscipit neque sit amet mauris molestie, at
 malesuada nibh rutrum. Aenean in ipsum et lacus finibus pretium et at

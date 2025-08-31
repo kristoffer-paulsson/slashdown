@@ -25,17 +25,7 @@ import org.slashdown.SyntaxError;
 import org.slashdown.elem.Element;
 import org.slashdown.token.Token;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class AbstractBlockCommand<E extends Element> implements Command {
-
-    private List<Token> tokens = new ArrayList<>();
-    private boolean finished = false;
-
-    public boolean isFinished() {
-        return finished;
-    }
 
     @Override
     public abstract String getName();
