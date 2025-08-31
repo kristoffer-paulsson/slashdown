@@ -26,10 +26,12 @@ import org.slashdown.lexer.AbstractInlineCommand;
 import org.slashdown.lexer.Commands;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
+import org.slashdown.token.Tokens;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Element {
 
@@ -85,6 +87,16 @@ public abstract class Element {
             }
         }
         return result;
+    }
+
+    public abstract void evaluateImpl();
+
+    public void evaluate() {
+        if(!inlineCommands.isEmpty()) {
+            List<Token> lastOpen = Tokens.filterToSublist(tokens, (t) -> !(t.type() == TokenType.COMMAND && Objects.equals(t.value(), inlineCommands.get(inlineCommands.size() - 1).getTag())));
+            SyntaxError.raise("Inline commands not closed at break", lastOpen.get(lastOpen.size()-1));
+        }
+        evaluateImpl();
     }
 
     public boolean isVisible() {

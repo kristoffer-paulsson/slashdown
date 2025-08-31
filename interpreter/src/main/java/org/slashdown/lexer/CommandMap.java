@@ -49,6 +49,8 @@ public class CommandMap {
         registerCommand(new ItalicCommand());
         registerCommand(new UnderlineCommand());
         registerCommand(new StrikethroughCommand());
+        registerCommand(new SingleQuoteCommand());
+        registerCommand(new DoubleQuoteCommand());
             /*new InlineCodeCommand(),
             new LinkCommand(),
             new ImageCommand(),

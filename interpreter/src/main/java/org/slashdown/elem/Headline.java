@@ -60,4 +60,9 @@ public class Headline extends Element{
 
         return true;
     }
+
+    @Override
+    public void evaluateImpl() {
+
+    }
 }

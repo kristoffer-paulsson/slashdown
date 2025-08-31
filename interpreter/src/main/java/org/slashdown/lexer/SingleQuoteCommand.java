@@ -19,47 +19,12 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.token;
+package org.slashdown.lexer;
 
-public class TokenCommand extends TokenScanner {
+public class SingleQuoteCommand extends AbstractInlineCommand {
 
-    public boolean initialValid(char c) {
-        return c == '\\';
-    }
-
-    public boolean singleValid(char c) {
-        return c == '\'' || c == '\"';
-    }
-
-    public boolean finalValid(char c) {
-        return c == '~';
-    }
-
-    public boolean isValid(char c) {
-        return TokenWord.CHARACTERS.contains(c);
-    }
-
-    public int scanUntil(String line, int start) {
-        int i = start;
-        if (i < line.length() && initialValid(line.charAt(i))) {
-            i++;
-        } else {
-            return start;
-        }
-        if (i < line.length() && singleValid(line.charAt(i))) {
-            i++;
-            return i;
-        }
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
-        }
-        if(i < line.length() && finalValid(line.charAt(i))) {
-            i++;
-        }
-        return i;
-    }
-
-    public TokenType getType() {
-        return TokenType.COMMAND;
+    @Override
+    public String getName() {
+        return "'";
     }
 }

@@ -48,4 +48,9 @@ public class Paragraph extends Element {
 
         return true;
     }
+
+    @Override
+    public void evaluateImpl() {
+
+    }
 }
