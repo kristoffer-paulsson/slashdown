@@ -28,6 +28,7 @@ import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Element {
@@ -41,15 +42,15 @@ public abstract class Element {
             // Inline commands already given, cannot nest, unnecessary.
             SyntaxError.raise("Same inline command invoked, can not be nested", token);
         }
-        inlineCommands.addLast(command);
+        inlineCommands.add(command);
     }
 
     protected void closeInline(Token token, AbstractInlineCommand command) {
-        if(inlineCommands.getLast() != command) {
+        if(inlineCommands.get(inlineCommands.size()-1) != command) {
             // Checking if open command and closing command mismatch
             SyntaxError.raise("Closing inline command mismatch", token);
         }
-        inlineCommands.removeLast();
+        inlineCommands.remove(command);
     }
 
     protected boolean closed = false;

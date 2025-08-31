@@ -27,6 +27,10 @@ public class TokenCommand extends TokenScanner {
         return c == '\\';
     }
 
+    public boolean finalValid(char c) {
+        return c == '~';
+    }
+
     public boolean isValid(char c) {
         return TokenWord.CHARACTERS.contains(c);
     }
@@ -39,6 +43,9 @@ public class TokenCommand extends TokenScanner {
             return start;
         }
         while (i < line.length() && isValid(line.charAt(i))) {
+            i++;
+        }
+        if(i < line.length() && finalValid(line.charAt(i))) {
             i++;
         }
         return i;
