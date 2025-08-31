@@ -30,6 +30,6 @@ public class NonBreakingCommand extends AbstractSimpleCommand {
 
     @Override
     public String getSymbol() {
-        return "~";
+        return "_";
     }
 }
