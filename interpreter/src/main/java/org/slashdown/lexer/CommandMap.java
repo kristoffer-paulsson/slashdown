@@ -42,8 +42,8 @@ public class CommandMap {
             new IndentedCodeBlockCommand(),
             new TableCommand(),*/
         registerCommand(new ParagraphCommand());
-            /*new LineBreakCommand(),
-            new BoldCommand(),*/
+            //new LineBreakCommand(),
+        registerCommand(new BoldCommand());
         registerCommand(new ItalicCommand());
             /*new StrikethroughCommand(),
             new InlineCodeCommand(),

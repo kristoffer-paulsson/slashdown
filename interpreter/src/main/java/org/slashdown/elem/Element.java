@@ -37,7 +37,6 @@ public abstract class Element {
     protected List<Token> tokens = new ArrayList<>();
 
     protected void openInline(Token token, AbstractInlineCommand command) {
-        if(command.isClosing(token)) throw new IllegalArgumentException("Not an opening command");
         if(inlineCommands.contains(command)) {
             // Inline commands already given, cannot nest, unnecessary.
             SyntaxError.raise("Same inline command invoked, can not be nested", token);
@@ -46,9 +45,8 @@ public abstract class Element {
     }
 
     protected void closeInline(Token token, AbstractInlineCommand command) {
-        if(!command.isClosing(token)) throw new IllegalArgumentException("Not a closing command");
         if(inlineCommands.getLast() != command) {
-            // Checking if it is a closing inline command.
+            // Checking if open command and closing command mismatch
             SyntaxError.raise("Closing inline command mismatch", token);
         }
         inlineCommands.removeLast();

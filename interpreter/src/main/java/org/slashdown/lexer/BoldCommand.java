@@ -21,23 +21,10 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.token.Token;
-
-public abstract class AbstractInlineCommand implements Command {
+public class BoldCommand extends AbstractInlineCommand {
 
     @Override
-    public abstract String getName();
-
-    @Override
-    public CommandType getType() {
-        return CommandType.INLINE;
-    }
-
-    public String getClosingTag() {
-        return getName() + '~';
-    }
-
-    public boolean isClosing(Token token) {
-        return token.value().equals(getClosingTag());
+    public String getName() {
+        return "\\b";
     }
 }
