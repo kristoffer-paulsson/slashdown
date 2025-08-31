@@ -48,6 +48,14 @@ public class Commands {
         return (AbstractBlockCommand<?>) command;
     }
 
+    public static AbstractInlineCommand inlineCommandFromToken(Token token){
+        Command command = commandFromToken(token);
+        if(command.getType() != CommandType.INLINE) {
+            SyntaxError.raise("Not an inline command", token);
+        }
+        return (AbstractInlineCommand) command;
+    }
+
     public static void isBlock(Command command, Consumer<AbstractBlockCommand<?>> action) {
         if(Objects.nonNull(command) && command.getType() == CommandType.BLOCK) {
             action.accept((AbstractBlockCommand<?>) command);

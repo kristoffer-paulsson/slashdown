@@ -21,6 +21,8 @@
  */
 package org.slashdown.lexer;
 
+import org.slashdown.token.Token;
+
 public abstract class AbstractInlineCommand implements Command {
 
     @Override
@@ -29,5 +31,9 @@ public abstract class AbstractInlineCommand implements Command {
     @Override
     public CommandType getType() {
         return CommandType.INLINE;
+    }
+
+    public boolean isClosing(Token token) {
+        return token.value().equals(getName() + '~');
     }
 }
