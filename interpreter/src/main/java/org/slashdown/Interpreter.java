@@ -52,7 +52,9 @@ public class Interpreter {
 
             if(token.type() == TokenType.COMMAND) {
                 Command command = CommandMap.getCommand(token.value());
-                if(command != null && command.getType() == CommandType.BLOCK) {
+                if(command == null) {
+                    throw new IllegalStateException("Syntas Error, invalid command: " + token.value());
+                } else if (command.getType() == CommandType.BLOCK) {
                     AbstractBlockCommand block = (AbstractBlockCommand) command;
                     blocks.add(currentBlock);
                     currentBlock = block.generateElement();
