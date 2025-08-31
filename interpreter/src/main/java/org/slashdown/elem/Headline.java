@@ -22,9 +22,6 @@
 package org.slashdown.elem;
 
 import org.slashdown.SyntaxError;
-import org.slashdown.lexer.Command;
-import org.slashdown.lexer.CommandMap;
-import org.slashdown.lexer.CommandType;
 import org.slashdown.lexer.Commands;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
@@ -52,8 +49,10 @@ public class Headline extends Element{
         if(eolReached) {
             return false;
         } else if(token.type() == TokenType.EOL) {
+            // Close headline block on first EOL
             eolReached = true;
         } else if(token.type() == TokenType.COMMAND) {
+            // Accept the initial block command, but no later block commands.
             Commands.isBlock(Commands.commandFromToken(token), (c) -> {
                 if(!tokens.isEmpty()) {
                     SyntaxError.raise("Illegal block command", token);
