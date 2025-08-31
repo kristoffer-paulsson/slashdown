@@ -46,7 +46,6 @@ public class Paragraph extends Element {
             eolCount = 0;
         }
 
-        tokens.add(token);
         return true;
     }
 }

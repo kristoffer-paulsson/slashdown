@@ -58,7 +58,6 @@ public class Headline extends Element{
             });
         }
 
-        tokens.add(token);
         return true;
     }
 }

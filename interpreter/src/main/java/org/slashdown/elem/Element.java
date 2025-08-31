@@ -21,7 +21,9 @@
  */
 package org.slashdown.elem;
 
+import org.slashdown.SyntaxError;
 import org.slashdown.lexer.AbstractInlineCommand;
+import org.slashdown.lexer.Commands;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
@@ -58,7 +60,15 @@ public abstract class Element {
         if(!isOpen()) {
             return false;
         }
-        return offerTokenImpl(token);
+
+        boolean result = offerTokenImpl(token);
+        if(result) {
+            tokens.add(token);
+            if(Commands.distinguishInline(token)) {
+                Commands.isInline(Commands.commandFromToken());
+            }
+        }
+        return result;
     }
 
     public boolean isVisible() {

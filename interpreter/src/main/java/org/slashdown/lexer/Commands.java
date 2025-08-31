@@ -23,11 +23,8 @@ package org.slashdown.lexer;
 
 import org.slashdown.SyntaxError;
 import org.slashdown.token.Token;
-import org.slashdown.token.TokenType;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class Commands {
@@ -66,5 +63,10 @@ public class Commands {
     public static boolean distinguishBlock(Token token) {
         Command command = getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.BLOCK;
+    }
+
+    public static boolean distinguishInline(Token token) {
+        Command command = getCommand(token.value());
+        return Objects.nonNull(command) && command.getType() == CommandType.INLINE;
     }
 }

@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class Tokens {
+    public static boolean isCommand(Token token) {
+        return token.type() == TokenType.COMMAND;
+    }
+
     public static List<Token> filter(List<Token> tokenList, Predicate<Token> invalid) {
         tokenList.removeIf(invalid);
         return tokenList;
