@@ -36,12 +36,22 @@ public abstract class Element {
 
     protected List<Token> tokens = new ArrayList<>();
 
-    protected void openInline(Token token) {
-
+    protected void openInline(Token token, AbstractInlineCommand command) {
+        if(command.isClosing(token)) throw new IllegalArgumentException("Not an opening command");
+        if(inlineCommands.contains(command)) {
+            // Inline commands already given, cannot nest, unnecessary.
+            SyntaxError.raise("Same inline command invoked, can not be nested", token);
+        }
+        inlineCommands.addLast(command);
     }
 
-    protected void closeInline(Token token) {
-
+    protected void closeInline(Token token, AbstractInlineCommand command) {
+        if(!command.isClosing(token)) throw new IllegalArgumentException("Not a closing command");
+        if(inlineCommands.getLast() != command) {
+            // Checking if it is a closing inline command.
+            SyntaxError.raise("Closing inline command mismatch", token);
+        }
+        inlineCommands.removeLast();
     }
 
     protected boolean closed = false;
@@ -67,21 +77,10 @@ public abstract class Element {
             if(Commands.distinguishInline(token)) {
                 // Open or removing inline command.
                 Commands.isInline(Commands.inlineCommandFromToken(token), (c) -> {
-                    if(inlineCommands.contains(c)) {
-                        // Inline commands already given, cannot nest, unnecessary.
-                        SyntaxError.raise("Same inline command invoked, can not be nested", token);
-                    }
                     if(c.isClosing(token)) {
-                        // Checking if it is a closing inline command.
-                        if (inlineCommands.getLast() == c) {
-                            // Given closing command matches current opening command.
-                            inlineCommands.removeLast();
-                        } else {
-                            SyntaxError.raise("Closing inline command mismatch", token);
-                        }
+                        closeInline(token, c);
                     } else {
-                        // Adding opening inline command.
-                        inlineCommands.add(c);
+                        openInline(token, c);
                     }
                 });
             }
