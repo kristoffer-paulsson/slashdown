@@ -41,9 +41,9 @@ public class SyntaxError extends IllegalStateException {
         return super.toString();
     }
 
-    protected static String format(String error, Token token) {
+    private static String format(String error, Token token) {
         return String.format(
-                "Syntax error. Line %s, col %s, %s (%s)",
+                "Syntax error. Line %s, col %s. %s: %s",
                 token.line(),
                 token.column(),
                 error,

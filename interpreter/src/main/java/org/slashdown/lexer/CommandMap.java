@@ -21,8 +21,12 @@
  */
 package org.slashdown.lexer;
 
+import org.slashdown.SyntaxError;
+import org.slashdown.token.Token;
+
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Objects;
 
 public class CommandMap {
     public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
@@ -58,5 +62,21 @@ public class CommandMap {
 
     public static Command getCommand(String name) {
         return COMMANDS.get(name);
+    }
+
+    public static Command commandFromToken(Token token){
+        Command command = getCommand(token.value());
+        if(Objects.isNull(command)) {
+            SyntaxError.raise("Invalid command", token);
+        }
+        return command;
+    }
+
+    public static Command blockCommandFromToken(Token token){
+        Command command = commandFromToken(token);
+        if(command.getType() != CommandType.BLOCK) {
+            SyntaxError.raise("Not a block command", token);
+        }
+        return command;
     }
 }
