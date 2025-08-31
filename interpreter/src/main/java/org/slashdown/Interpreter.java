@@ -26,6 +26,7 @@ import org.slashdown.elem.Paragraph;
 import org.slashdown.lexer.*;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenIterator;
+import org.slashdown.token.Tokens;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,11 @@ public class Interpreter {
 
         while (tokenIterator.hasNext()) {
             Token token = tokenIterator.next();
+
+            if(Tokens.isCommand(token)) {
+                // Enforces only valid commands
+                Commands.commandFromToken(token);
+            }
 
             if(!currentBlock.offerToken(token)) {
                 if(Commands.distinguishBlock(token)) {
