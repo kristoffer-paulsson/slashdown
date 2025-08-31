@@ -27,6 +27,8 @@ import java.util.Hashtable;
 public class CommandMap {
     public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
 
+    public static final Hashtable<String, String> TAGS = new Hashtable<>();
+
     static {
         registerCommand(new Heading1Command());
         registerCommand(new Heading2Command());
@@ -53,10 +55,14 @@ public class CommandMap {
     }
 
     public static void registerCommand(Command command) {
-        Commands.isBlock(command, (c) -> COMMANDS.put(c.getName(), c));
+        Commands.isBlock(command, (c) -> {
+            COMMANDS.put(c.getName(), c);
+            TAGS.put(c.getTag(), c.getName());
+        });
         Commands.isInline(command, (c) -> {
             COMMANDS.put(c.getName(), c);
-            COMMANDS.put(c.getName() + '~', c);
+            TAGS.put(c.getTag(), c.getName());
+            TAGS.put(c.getClosingTag(), c.getName());
         });
     }
 }

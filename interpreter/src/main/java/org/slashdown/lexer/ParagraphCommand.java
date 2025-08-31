@@ -28,7 +28,7 @@ public class ParagraphCommand extends AbstractBlockCommand<Paragraph> {
 
     @Override
     public String getName() {
-        return "\\p";
+        return "p";
     }
 
     @Override

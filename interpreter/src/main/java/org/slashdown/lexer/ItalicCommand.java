@@ -25,6 +25,6 @@ public class ItalicCommand extends AbstractInlineCommand {
 
     @Override
     public String getName() {
-        return "\\i";
+        return "i";
     }
 }

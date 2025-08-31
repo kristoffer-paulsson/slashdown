@@ -25,6 +25,6 @@ public class BoldCommand extends AbstractInlineCommand {
 
     @Override
     public String getName() {
-        return "\\b";
+        return "b";
     }
 }

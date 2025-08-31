@@ -34,7 +34,7 @@ public abstract class AbstractInlineCommand implements Command {
     }
 
     public String getClosingTag() {
-        return getName() + '~';
+        return getTag() + '~';
     }
 
     public boolean isClosing(Token token) {

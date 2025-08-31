@@ -28,8 +28,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class Commands {
-    public static Command getCommand(String name) {
-        return CommandMap.COMMANDS.get(name);
+    public static Command getCommand(String tag) {
+        return CommandMap.COMMANDS.get(CommandMap.TAGS.getOrDefault(tag, ""));
     }
 
     public static Command commandFromToken(Token token){

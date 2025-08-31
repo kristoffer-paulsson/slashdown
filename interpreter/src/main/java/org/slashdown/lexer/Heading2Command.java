@@ -21,13 +21,11 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.elem.Headline;
-
 public class Heading2Command extends AbstractHeadlineCommand {
 
     @Override
     public String getName() {
-        return "\\h2";
+        return "h2";
     }
 
     @Override
