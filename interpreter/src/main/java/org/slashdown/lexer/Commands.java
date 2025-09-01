@@ -36,15 +36,21 @@ public class Commands {
         String value = token.value();
         Command command;
 
-        if(token.value().contains(":")) {
-            command = getCommand(value.substring(0, value.indexOf(':')));
+        boolean variable = hasVariable(token);
+        if(variable) {
+            command = getCommand(extractTag(token));
         } else {
             command = getCommand(value);
         }
 
         if(Objects.isNull(command)) {
             SyntaxError.raise("Invalid command", token);
+        } else if(command.variableSupport() == Variable.MANDATORY && !variable) {
+            SyntaxError.raise("Variable is mandatory", token);
+        } else if(command.variableSupport() == Variable.PROHIBITED && variable) {
+            SyntaxError.raise("Variable is prohibited", token);
         }
+
         return command;
     }
 
@@ -103,5 +109,32 @@ public class Commands {
     public static boolean distinguishSimple(Token token) {
         Command command = getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.SIMPLE;
+    }
+
+    public static boolean hasVariable(Token token) {
+        String value = token.value();
+        return value.contains(":") || value.endsWith(";");
+    }
+
+    public static void examineVariableCommand(Token token) {
+        String value = token.value();
+
+        if(!value.startsWith("\\") || !value.contains(":") || !value.endsWith(";")) {
+            SyntaxError.raise("Command tag and variable not properly delimited", token);
+        }
+    }
+
+    public static String extractVariable(Token token) {
+        examineVariableCommand(token);
+        String value = token.value();
+
+        return value.substring(value.indexOf(':')+1, value.indexOf(';'));
+    }
+
+    public static String extractTag(Token token) {
+        examineVariableCommand(token);
+        String value = token.value();
+
+        return value.substring(0, value.indexOf(':'));
     }
 }
