@@ -31,6 +31,7 @@ public class CommandMap {
 
     static {
         registerCommand(new UnicodeCommand());
+        registerCommand(new EnyityCommand());
 
         // Special escape characters
         registerCommand(new EscapeBackslashCommand());
