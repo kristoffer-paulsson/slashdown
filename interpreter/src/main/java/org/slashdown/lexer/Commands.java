@@ -33,7 +33,15 @@ public class Commands {
     }
 
     public static Command commandFromToken(Token token){
-        Command command = getCommand(token.value());
+        String value = token.value();
+        Command command;
+
+        if(token.value().contains(":")) {
+            command = getCommand(value.substring(0, value.indexOf(':')));
+        } else {
+            command = getCommand(value);
+        }
+
         if(Objects.isNull(command)) {
             SyntaxError.raise("Invalid command", token);
         }
