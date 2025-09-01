@@ -21,36 +21,19 @@
  */
 package org.slashdown.token;
 
-import java.util.List;
-import java.util.function.Predicate;
+import java.util.Set;
 
-public class Tokens {
+public class TokenHex extends TokenScanner {
+    static public final Set<Character> CHARACTERS = Set.of(
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    );
 
-    private static TokenWord word;
-    private static TokenHex hex;
-
-    static {
-        word = new TokenWord();
-        hex = new TokenHex();
+    public boolean isValid(char c) {
+        return CHARACTERS.contains(c);
     }
 
-    public static boolean isWordCompliant(String value) {
-        return word.scanUntil(value, 0) == value.length()-1;
-    }
-
-    public static boolean isHexCompliant(String value) {
-        return hex.scanUntil(value, 0) == value.length()-1;
-    }
-
-    public static boolean isCommand(Token token) {
-        return token.type() == TokenType.COMMAND;
-    }
-
-    public static List<Token> filter(List<Token> tokenList, Predicate<Token> invalid) {
-        tokenList.removeIf(invalid);
-        return tokenList;
-    }
-    public static List<Token> filterToSublist(List<Token> tokenList, Predicate<Token> invalid) {
-        return filter(new java.util.ArrayList<>(tokenList), invalid);
+    public TokenType getType() {
+        return TokenType.WORD;
     }
 }

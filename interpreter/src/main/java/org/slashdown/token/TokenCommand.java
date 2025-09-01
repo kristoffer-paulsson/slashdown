@@ -25,11 +25,6 @@ import java.util.Set;
 
 public class TokenCommand extends TokenScanner {
 
-    static public final Set<Character> HEXADECIMALS = Set.of(
-            '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-    );
-
     public boolean initialValid(char c) {
         return c == '\\';
     }
@@ -39,7 +34,7 @@ public class TokenCommand extends TokenScanner {
     }
 
     public boolean hexValid(char c) {
-        return HEXADECIMALS.contains(c);
+        return TokenHex.CHARACTERS.contains(c);
     }
 
     public boolean finalValid(char c) {
@@ -59,6 +54,11 @@ public class TokenCommand extends TokenScanner {
         if(i < line.length() && line.charAt(i) == '\\'){
             // Allowing escaping of backslash \\
             i++;
+        } else if(i < line.length() && line.charAt(i) == 'x') {
+            i++;
+            while (i < line.length() && hexValid(line.charAt(i))) {
+                i++;
+            }
         } else if (i < line.length() && singleValid(line.charAt(i))) {
             // Picking up single symbol (not letter) commands
             i++;
