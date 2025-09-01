@@ -27,4 +27,9 @@ public class EmDashCommand extends AbstractSimpleCommand {
     public String getName() {
         return "emdash";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

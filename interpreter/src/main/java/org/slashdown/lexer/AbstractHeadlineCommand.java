@@ -21,7 +21,6 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.SyntaxError;
 import org.slashdown.elem.Headline;
 import org.slashdown.token.Token;
 
@@ -31,5 +30,10 @@ public abstract class AbstractHeadlineCommand extends AbstractBlockCommand<Headl
 
     public Headline generateElementImpl(Token token) {
         return new Headline(getLevel());
+    }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
     }
 }

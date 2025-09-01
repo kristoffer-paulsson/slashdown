@@ -27,4 +27,9 @@ public class EscapeAsteriskCommand extends AbstractSimpleCommand {
     public String getName() {
         return "*";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

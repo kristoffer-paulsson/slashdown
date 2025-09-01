@@ -27,4 +27,9 @@ public class BoldCommand extends AbstractInlineCommand {
     public String getName() {
         return "b";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

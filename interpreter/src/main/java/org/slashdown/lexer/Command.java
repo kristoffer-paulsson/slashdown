@@ -29,5 +29,5 @@ public interface Command {
         return '\\' + getName();
     }
 
-    public SupportVariable variableSupport();
+    public Variable variableSupport();
 }

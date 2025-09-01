@@ -21,7 +21,7 @@
  */
 package org.slashdown.lexer;
 
-public enum SupportVariable {
+public enum Variable {
     MANDATORY,
     OPTIONAL,
     PROHIBITED;

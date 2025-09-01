@@ -29,6 +29,11 @@ public class NonBreakingCommand extends AbstractSimpleCommand {
     }
 
     @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
+
+    @Override
     public String getSymbol() {
         return "_";
     }

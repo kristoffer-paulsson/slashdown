@@ -27,4 +27,9 @@ public class SingleQuoteCommand extends AbstractInlineCommand {
     public String getName() {
         return "'";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

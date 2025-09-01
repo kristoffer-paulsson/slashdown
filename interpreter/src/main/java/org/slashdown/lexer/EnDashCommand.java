@@ -27,4 +27,9 @@ public class EnDashCommand extends AbstractSimpleCommand {
     public String getName() {
         return "endash";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

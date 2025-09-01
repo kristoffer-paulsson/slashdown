@@ -29,6 +29,11 @@ public class EscapeTildeCommand extends AbstractSimpleCommand {
     }
 
     @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
+
+    @Override
     public String getSymbol() {
         return "~";
     }

@@ -27,4 +27,9 @@ public class StrikethroughCommand extends AbstractInlineCommand {
     public String getName() {
         return "s";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

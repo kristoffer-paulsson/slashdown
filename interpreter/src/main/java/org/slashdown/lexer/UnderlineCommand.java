@@ -27,4 +27,9 @@ public class UnderlineCommand extends AbstractInlineCommand {
     public String getName() {
         return "u";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

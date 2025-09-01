@@ -21,9 +21,6 @@
  */
 package org.slashdown.lexer;
 
-import org.slashdown.elem.Headline;
-import org.slashdown.token.Token;
-
 public class Heading1Command extends AbstractHeadlineCommand {
 
     @Override

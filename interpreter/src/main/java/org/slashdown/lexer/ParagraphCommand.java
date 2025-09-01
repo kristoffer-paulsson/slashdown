@@ -32,6 +32,11 @@ public class ParagraphCommand extends AbstractBlockCommand<Paragraph> {
     }
 
     @Override
+    public Variable variableSupport() {
+        return Variable.OPTIONAL;
+    }
+
+    @Override
     public Paragraph generateElementImpl(Token token) {
         return new Paragraph();
     }

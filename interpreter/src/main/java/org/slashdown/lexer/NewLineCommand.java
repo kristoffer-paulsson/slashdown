@@ -27,4 +27,9 @@ public class NewLineCommand extends AbstractSimpleCommand {
     public String getName() {
         return "nl";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

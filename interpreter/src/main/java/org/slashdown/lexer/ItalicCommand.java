@@ -27,4 +27,9 @@ public class ItalicCommand extends AbstractInlineCommand {
     public String getName() {
         return "i";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }

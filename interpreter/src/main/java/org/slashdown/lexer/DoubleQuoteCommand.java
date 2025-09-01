@@ -27,4 +27,9 @@ public class DoubleQuoteCommand extends AbstractInlineCommand {
     public String getName() {
         return "\"";
     }
+
+    @Override
+    public Variable variableSupport() {
+        return Variable.PROHIBITED;
+    }
 }
