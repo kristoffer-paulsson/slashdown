@@ -26,8 +26,8 @@ import java.util.function.Predicate;
 
 public class Tokens {
 
-    private static TokenWord word;
-    private static TokenHex hex;
+    private final static TokenWord word;
+    private final static TokenHex hex;
 
     static {
         word = new TokenWord();

@@ -23,6 +23,7 @@ package org.slashdown.lexer;
 
 import org.slashdown.SyntaxError;
 import org.slashdown.token.Token;
+import org.slashdown.token.Tokens;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -128,7 +129,12 @@ public class Commands {
         examineVariableCommand(token);
         String value = token.value();
 
-        return value.substring(value.indexOf(':')+1, value.indexOf(';'));
+        String variable = value.substring(value.indexOf(':')+1, value.indexOf(';'));
+
+        if(!Tokens.isWordCompliant(variable)) {
+            SyntaxError.raise("Command variable is not word compliant", token);
+        }
+        return variable;
     }
 
     public static String extractTag(Token token) {
