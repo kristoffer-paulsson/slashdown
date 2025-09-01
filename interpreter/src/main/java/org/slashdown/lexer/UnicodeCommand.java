@@ -32,9 +32,4 @@ public class UnicodeCommand extends AbstractSimpleCommand {
     public Variable variableSupport() {
         return Variable.MANDATORY;
     }
-
-    @Override
-    public String getSymbol() {
-        return "\\";
-    }
 }

@@ -42,6 +42,11 @@ public class Interpreter {
         this.tokenIterator = tokenIterator;
     }
 
+    protected void changeBlock() {
+        blocks.add(currentBlock);
+        currentBlock.evaluate();
+    }
+
     public void interpret() {
 
         while (tokenIterator.hasNext()) {
@@ -55,12 +60,10 @@ public class Interpreter {
             if(!currentBlock.offerToken(token)) {
                 if(Commands.distinguishBlock(token)) {
                     AbstractBlockCommand<?> block = Commands.blockCommandFromToken(token);
-                    blocks.add(currentBlock);
-                    currentBlock.evaluate();
+                    changeBlock();
                     currentBlock = block.generateElement(token);
                 } else {
-                    blocks.add(currentBlock);
-                    currentBlock.evaluate();
+                    changeBlock();
                     currentBlock = new Paragraph();
                 }
                 if(!currentBlock.offerToken(token)) {

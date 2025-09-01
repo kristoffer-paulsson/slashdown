@@ -25,7 +25,7 @@ public class EscapeTildeCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "semi";
+        return "tilde";
     }
 
     @Override
