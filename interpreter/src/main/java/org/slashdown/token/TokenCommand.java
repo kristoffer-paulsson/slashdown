@@ -89,8 +89,6 @@ public class TokenCommand extends TokenScanner {
                 if(i < line.length() && line.charAt(i) == ';'){
                     i++;
                 }
-            } else if(i < line.length() && line.charAt(i) == ';'){
-                i++;
             }
         }
 

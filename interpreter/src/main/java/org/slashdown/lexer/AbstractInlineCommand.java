@@ -23,7 +23,10 @@ package org.slashdown.lexer;
 
 import org.slashdown.token.Token;
 
-public abstract class AbstractInlineCommand extends AbstractNonBlockCommand {
+public abstract class AbstractInlineCommand implements Command  {
+
+    @Override
+    public abstract String getName();
 
     @Override
     public CommandType getType() {

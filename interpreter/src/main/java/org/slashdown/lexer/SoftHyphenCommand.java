@@ -37,9 +37,4 @@ public class SoftHyphenCommand extends AbstractSimpleCommand {
     public String getSymbol() {
         return "-";
     }
-
-    @Override
-    public String getEscTag() {
-        return getTag() + ";";
-    }
 }
