@@ -25,11 +25,16 @@ public class DoubleQuoteCommand extends AbstractInlineCommand {
 
     @Override
     public String getName() {
-        return "\"";
+        return "dq";
     }
 
     @Override
     public Variable variableSupport() {
         return Variable.PROHIBITED;
+    }
+
+    @Override
+    public String getSymbol() {
+        return "\"";
     }
 }

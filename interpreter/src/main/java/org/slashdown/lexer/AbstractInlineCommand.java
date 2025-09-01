@@ -37,7 +37,11 @@ public abstract class AbstractInlineCommand extends AbstractNonBlockCommand  {
         return getTag() + '~';
     }
 
+    public String getSymbolClosingTag() {
+        return getSymbolTag() + '~';
+    }
+
     public boolean isClosing(Token token) {
-        return token.value().equals(getClosingTag());
+        return token.value().equals(getClosingTag()) || token.value().equals(getSymbolClosingTag());
     }
 }

@@ -29,13 +29,13 @@ import org.slashdown.token.TokenType;
 import org.slashdown.token.Tokens;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class Element {
 
     protected List<AbstractInlineCommand> inlineCommands = new ArrayList<>();
+    protected List<Token> inlineToken = new ArrayList<>();
 
     protected List<Token> tokens = new ArrayList<>();
 
@@ -44,15 +44,23 @@ public abstract class Element {
             // Inline commands already given, cannot nest, unnecessary.
             SyntaxError.raise("Same inline command invoked, can not be nested", token);
         }
-        inlineCommands.add(command);
+        inlineCommands.addLast(command);
+        inlineToken.addLast(token);
     }
 
     protected void closeInline(Token token, AbstractInlineCommand command) {
-        if(inlineCommands.get(inlineCommands.size()-1) != command) {
+        if(inlineCommands.getLast() != command) {
             // Checking if open command and closing command mismatch
             SyntaxError.raise("Closing inline command mismatch", token);
         }
-        inlineCommands.remove(command);
+        if(!token.value().startsWith(inlineToken.getLast().value())) {
+            // Checking if the same closing is used as opening open-name -> close-name and open-symbol -> close-symbol.
+            SyntaxError.raise("Inline commands must be closing with same semantics", token);
+        }
+
+        inlineCommands.removeLast();
+        inlineToken.removeLast();
+
     }
 
     protected boolean closed = false;
@@ -93,8 +101,8 @@ public abstract class Element {
 
     public void evaluate() {
         if(!inlineCommands.isEmpty()) {
-            List<Token> lastOpen = Tokens.filterToSublist(tokens, (t) -> !(t.type() == TokenType.COMMAND && Objects.equals(t.value(), inlineCommands.get(inlineCommands.size() - 1).getTag())));
-            SyntaxError.raise("Inline commands not closed at break", lastOpen.get(lastOpen.size()-1));
+            List<Token> lastOpen = Tokens.filterToSublist(tokens, (t) -> !(t.type() == TokenType.COMMAND && Objects.equals(t.value(), inlineCommands.getLast().getTag())));
+            SyntaxError.raise("Inline commands not closed at break", lastOpen.getLast());
         }
         evaluateImpl();
     }

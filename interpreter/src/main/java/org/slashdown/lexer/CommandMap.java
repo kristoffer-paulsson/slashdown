@@ -68,6 +68,7 @@ public class CommandMap {
         registerCommand(new SingleQuoteCommand());
         registerCommand(new DoubleQuoteCommand());
         registerCommand(new SuperScriptCommand());
+        registerCommand(new SubScriptCommand());
             /*new InlineCodeCommand(),
             new LinkCommand(),
             new ImageCommand(),
@@ -97,6 +98,12 @@ public class CommandMap {
             setCommand(c.getName(), c);
             setTag(c.getTag(), c.getName());
             setTag(c.getClosingTag(), c.getName());
+
+            String symbol = c.getSymbolTag();
+            if(!symbol.isBlank()) {
+                setTag(c.getSymbolTag(), c.getName());
+                setTag(c.getSymbolClosingTag(), c.getName());
+            }
         });
         Commands.isSimple(command, (c) -> {
             setCommand(c.getName(), c);

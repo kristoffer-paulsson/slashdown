@@ -21,20 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public class SuperScriptCommand extends AbstractInlineCommand {
+public class SubScriptCommand extends AbstractInlineCommand {
 
     @Override
     public String getName() {
-        return "sup";
+        return "sub";
     }
 
     @Override
     public Variable variableSupport() {
         return Variable.PROHIBITED;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "^";
     }
 }

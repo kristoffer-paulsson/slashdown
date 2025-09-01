@@ -25,11 +25,16 @@ public class SingleQuoteCommand extends AbstractInlineCommand {
 
     @Override
     public String getName() {
-        return "'";
+        return "sq";
     }
 
     @Override
     public Variable variableSupport() {
         return Variable.PROHIBITED;
+    }
+
+    @Override
+    public String getSymbol() {
+        return "'";
     }
 }
