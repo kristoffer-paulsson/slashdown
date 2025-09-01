@@ -25,9 +25,9 @@ import java.util.Hashtable;
 
 
 public class CommandMap {
-    public static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
+    private static final Hashtable<String, Command> COMMANDS = new Hashtable<>();
 
-    public static final Hashtable<String, String> TAGS = new Hashtable<>();
+    private static final Hashtable<String, String> TAGS = new Hashtable<>();
 
     static {
         registerCommand(new UnicodeCommand());
@@ -74,23 +74,41 @@ public class CommandMap {
             new EscapeCommand()*/;
     }
 
+    private static void setTag(String key, String value) {
+        if(TAGS.containsKey(key)) {
+            throw new IllegalStateException("Tag " + key + " is already taken!");
+        }
+        TAGS.put(key, value);
+    }
+
+    private static void setCommand(String key, Command command) {
+        if(COMMANDS.containsKey(key)) {
+            throw new IllegalStateException("Command " + key + " is already taken!");
+        }
+        COMMANDS.put(key, command);
+    }
+
     public static void registerCommand(Command command) {
         Commands.isBlock(command, (c) -> {
-            COMMANDS.put(c.getName(), c);
-            TAGS.put(c.getTag(), c.getName());
+            setCommand(c.getName(), c);
+            setTag(c.getTag(), c.getName());
         });
         Commands.isInline(command, (c) -> {
-            COMMANDS.put(c.getName(), c);
-            TAGS.put(c.getTag(), c.getName());
-            TAGS.put(c.getClosingTag(), c.getName());
+            setCommand(c.getName(), c);
+            setTag(c.getTag(), c.getName());
+            setTag(c.getClosingTag(), c.getName());
         });
         Commands.isSimple(command, (c) -> {
-            COMMANDS.put(c.getName(), c);
-            TAGS.put(c.getTag(), c.getName());
+            setCommand(c.getName(), c);
+            setTag(c.getTag(), c.getName());
             String symbol = c.getSymbolTag();
             if(!symbol.isBlank()) {
-                TAGS.put(c.getSymbolTag(), c.getName());
+                setTag(c.getSymbolTag(), c.getName());
             }
         });
+    }
+
+    public static Command getCommand(String tag) {
+        return CommandMap.COMMANDS.get(CommandMap.TAGS.getOrDefault(tag, ""));
     }
 }

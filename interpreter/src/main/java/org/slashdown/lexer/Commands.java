@@ -29,9 +29,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class Commands {
-    public static Command getCommand(String tag) {
-        return CommandMap.COMMANDS.get(CommandMap.TAGS.getOrDefault(tag, ""));
-    }
 
     public static Command commandFromToken(Token token) {
         Token valid = token;
@@ -44,9 +41,9 @@ public class Commands {
 
         boolean variable = hasVariable(valid);
         if(variable) {
-            command = getCommand(extractTag(valid));
+            command = CommandMap.getCommand(extractTag(valid));
         } else {
-            command = getCommand(valid.value());
+            command = CommandMap.getCommand(valid.value());
         }
 
         if(Objects.isNull(command)) {
@@ -103,17 +100,17 @@ public class Commands {
     }
 
     public static boolean distinguishBlock(Token token) {
-        Command command = getCommand(token.value());
+        Command command = CommandMap.getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.BLOCK;
     }
 
     public static boolean distinguishInline(Token token) {
-        Command command = getCommand(token.value());
+        Command command = CommandMap.getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.INLINE;
     }
 
     public static boolean distinguishSimple(Token token) {
-        Command command = getCommand(token.value());
+        Command command = CommandMap.getCommand(token.value());
         return Objects.nonNull(command) && command.getType() == CommandType.SIMPLE;
     }
 
