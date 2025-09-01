@@ -25,11 +25,16 @@ public class EscapeAsteriskCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "*";
+        return "asterisk";
     }
 
     @Override
     public Variable variableSupport() {
         return Variable.PROHIBITED;
+    }
+
+    @Override
+    public String getSymbol() {
+        return "*";
     }
 }
