@@ -42,9 +42,10 @@ public class Interpreter {
         this.tokenIterator = tokenIterator;
     }
 
-    protected void changeBlock() {
+    protected void changeBlock(Element block) {
         blocks.add(currentBlock);
         currentBlock.evaluate();
+        currentBlock = block;
     }
 
     public void interpret() {
@@ -59,12 +60,9 @@ public class Interpreter {
 
             if(!currentBlock.offerToken(token)) {
                 if(Commands.distinguishBlock(token)) {
-                    AbstractBlockCommand<?> block = Commands.blockCommandFromToken(token);
-                    changeBlock();
-                    currentBlock = block.generateElement(token);
+                    changeBlock(Commands.blockCommandFromToken(token).generateElement(token));
                 } else {
-                    changeBlock();
-                    currentBlock = new Paragraph();
+                    changeBlock(new Paragraph());
                 }
                 if(!currentBlock.offerToken(token)) {
                     SyntaxError.raise("Unhandled token", token);
