@@ -32,4 +32,9 @@ public class EnDashCommand extends AbstractSimpleCommand {
     public Variable variableSupport() {
         return Variable.PROHIBITED;
     }
+
+    @Override
+    public String getEscTag() {
+        return getTag() + ";";
+    }
 }

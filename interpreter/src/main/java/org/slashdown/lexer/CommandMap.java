@@ -97,10 +97,21 @@ public class CommandMap {
             setCommand(c.getName(), c);
             setTag(c.getTag(), c.getName());
             setTag(c.getClosingTag(), c.getName());
+
+            String esc = c.getEscTag();
+            if(!esc.isBlank()) {
+                setTag(esc, c.getName());
+            }
         });
         Commands.isSimple(command, (c) -> {
             setCommand(c.getName(), c);
             setTag(c.getTag(), c.getName());
+
+            String esc = c.getEscTag();
+            if(!esc.isBlank()) {
+                setTag(esc, c.getName());
+            }
+
             String symbol = c.getSymbolTag();
             if(!symbol.isBlank()) {
                 setTag(c.getSymbolTag(), c.getName());

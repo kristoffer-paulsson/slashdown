@@ -21,25 +21,12 @@
  */
 package org.slashdown.lexer;
 
-public class SoftHyphenCommand extends AbstractSimpleCommand {
+public abstract class AbstractNonBlockCommand implements Command {
 
     @Override
-    public String getName() {
-        return "shy";
-    }
+    public abstract String getName();
 
-    @Override
-    public Variable variableSupport() {
-        return Variable.PROHIBITED;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "-";
-    }
-
-    @Override
     public String getEscTag() {
-        return getTag() + ";";
+        return "";
     }
 }

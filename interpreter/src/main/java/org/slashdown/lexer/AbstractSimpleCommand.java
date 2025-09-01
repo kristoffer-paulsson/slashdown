@@ -21,10 +21,7 @@
  */
 package org.slashdown.lexer;
 
-public abstract class AbstractSimpleCommand implements Command {
-
-    @Override
-    public abstract String getName();
+public abstract class AbstractSimpleCommand extends AbstractNonBlockCommand {
 
     @Override
     public CommandType getType() {
