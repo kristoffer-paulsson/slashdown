@@ -30,6 +30,8 @@ public class CommandMap {
     public static final Hashtable<String, String> TAGS = new Hashtable<>();
 
     static {
+        registerCommand(new UnicodeCommand());
+
         // Special escape characters
         registerCommand(new EscapeBackslashCommand());
         registerCommand(new EscapeTildeCommand());

@@ -19,21 +19,22 @@
  * Contributors:
  * Kristoffer Paulsson - initial implementation
  */
-package org.slashdown.token;
+package org.slashdown.lexer;
 
-import java.util.Set;
+public class UnicodeCommand extends AbstractSimpleCommand {
 
-public class TokenHex extends TokenScanner {
-    static public final Set<Character> CHARACTERS = Set.of(
-            '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-    );
-
-    public boolean isValid(char c) {
-        return CHARACTERS.contains(c);
+    @Override
+    public String getName() {
+        return "utf";
     }
 
-    public TokenType getType() {
-        return TokenType.UNKNOWN;
+    @Override
+    public Variable variableSupport() {
+        return Variable.MANDATORY;
+    }
+
+    @Override
+    public String getSymbol() {
+        return "\\";
     }
 }

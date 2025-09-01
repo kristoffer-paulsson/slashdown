@@ -33,23 +33,28 @@ public class Commands {
         return CommandMap.COMMANDS.get(CommandMap.TAGS.getOrDefault(tag, ""));
     }
 
-    public static Command commandFromToken(Token token){
-        String value = token.value();
+    public static Command commandFromToken(Token token) {
+        Token valid = token;
+
+        if(isValidHexCommand(token)) {
+            valid = translateHex(token);
+        }
+
         Command command;
 
-        boolean variable = hasVariable(token);
+        boolean variable = hasVariable(valid);
         if(variable) {
-            command = getCommand(extractTag(token));
+            command = getCommand(extractTag(valid));
         } else {
-            command = getCommand(value);
+            command = getCommand(valid.value());
         }
 
         if(Objects.isNull(command)) {
-            SyntaxError.raise("Invalid command", token);
+            SyntaxError.raise("Invalid command", valid);
         } else if(command.variableSupport() == Variable.MANDATORY && !variable) {
-            SyntaxError.raise("Variable is mandatory", token);
+            SyntaxError.raise("Variable is mandatory", valid);
         } else if(command.variableSupport() == Variable.PROHIBITED && variable) {
-            SyntaxError.raise("Variable is prohibited", token);
+            SyntaxError.raise("Variable is prohibited", valid);
         }
 
         return command;
@@ -142,5 +147,14 @@ public class Commands {
         String value = token.value();
 
         return value.substring(0, value.indexOf(':'));
+    }
+
+    public static boolean isValidHexCommand(Token token) {
+        String value = token.value();
+        return value.startsWith("\\x") && Tokens.isHexCompliant(value.substring(2));
+    }
+
+    public static Token translateHex(Token token) {
+        return new Token(token.type(),String.format("\\utf:%s;", token.value().substring(2)), token.line(), token.column());
     }
 }

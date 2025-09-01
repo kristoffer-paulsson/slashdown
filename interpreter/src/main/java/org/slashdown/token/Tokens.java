@@ -35,11 +35,11 @@ public class Tokens {
     }
 
     public static boolean isWordCompliant(String value) {
-        return word.scanUntil(value, 0) == value.length()-1;
+        return word.scanUntil(value, 0) == value.length();
     }
 
     public static boolean isHexCompliant(String value) {
-        return hex.scanUntil(value, 0) == value.length()-1;
+        return hex.scanUntil(value, 0) == value.length();
     }
 
     public static boolean isCommand(Token token) {
