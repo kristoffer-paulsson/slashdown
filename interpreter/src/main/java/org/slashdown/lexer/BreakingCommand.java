@@ -21,20 +21,15 @@
  */
 package org.slashdown.lexer;
 
-public class NonBreakingCommand extends AbstractSimpleCommand {
+public class BreakingCommand extends AbstractSimpleCommand {
 
     @Override
     public String getName() {
-        return "nb";
+        return "br";
     }
 
     @Override
     public Variable variableSupport() {
         return Variable.PROHIBITED;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "_";
     }
 }

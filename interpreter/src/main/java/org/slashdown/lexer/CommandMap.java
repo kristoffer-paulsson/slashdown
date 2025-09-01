@@ -40,8 +40,8 @@ public class CommandMap {
 
         // Special formatting commands
         registerCommand(new SoftHyphenCommand());
-        registerCommand(new NonBreakingCommand());
-        registerCommand(new NewLineCommand());
+        registerCommand(new NonBreakingSpaceCommand());
+        registerCommand(new BreakingCommand());
         registerCommand(new EllipsisCommand());
         registerCommand(new EnDashCommand());
         registerCommand(new EmDashCommand());
