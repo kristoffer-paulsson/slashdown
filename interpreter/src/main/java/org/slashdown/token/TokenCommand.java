@@ -60,13 +60,20 @@ public class TokenCommand extends TokenScanner {
             // Allowing escaping of backslash \\
             i++;
         } else if (i < line.length() && singleValid(line.charAt(i))) {
-            // Picking up single sign (not letter) commands
+            // Picking up single symbol (not letter) commands
             i++;
             // Including inline finalizer
             if(i < line.length() && finalValid(line.charAt(i))) {
                 i++;
+            } else if(i < line.length() && line.charAt(i) == ':') {
+                i++;
+                while (i < line.length() && isValid(line.charAt(i))) {
+                    i++;
+                }
+                if(i < line.length() && line.charAt(i) == ';'){
+                    i++;
+                }
             }
-            return i;
         } else if(i < line.length() && isValid(line.charAt(i))) {
             i++;
             while (i < line.length() && isValid(line.charAt(i))) {
@@ -74,8 +81,15 @@ public class TokenCommand extends TokenScanner {
             }
             if(i < line.length() && finalValid(line.charAt(i))) {
                 i++;
+            } else if(i < line.length() && line.charAt(i) == ':') {
+                i++;
+                while (i < line.length() && isValid(line.charAt(i))) {
+                    i++;
+                }
+                if(i < line.length() && line.charAt(i) == ';'){
+                    i++;
+                }
             }
-            return i;
         }
 
         return i;

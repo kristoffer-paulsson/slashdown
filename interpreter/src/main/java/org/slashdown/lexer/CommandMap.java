@@ -85,10 +85,9 @@ public class CommandMap {
         Commands.isSimple(command, (c) -> {
             COMMANDS.put(c.getName(), c);
             TAGS.put(c.getTag(), c.getName());
-            try {
-                TAGS.put(c.getTag(), c.getName());
-            } catch (IllegalStateException e) {
-                // Pass
+            String symbol = c.getSymbolTag();
+            if(!symbol.isBlank()) {
+                TAGS.put(c.getSymbolTag(), c.getName());
             }
         });
     }

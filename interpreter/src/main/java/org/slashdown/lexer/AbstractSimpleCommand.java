@@ -31,12 +31,17 @@ public abstract class AbstractSimpleCommand implements Command {
         return CommandType.SIMPLE;
     }
 
-    public String getSymbol() {
-        throw new IllegalStateException("No symbol allowed");
+    protected String getSymbol() {
+        return "";
     }
 
     public String getSymbolTag() {
-        return '\\' + getSymbol();
+        String symbol = getSymbol();
+        if(symbol.isBlank()) {
+            return "";
+        } else {
+            return "\\" + getSymbol();
+        }
     }
 
 }

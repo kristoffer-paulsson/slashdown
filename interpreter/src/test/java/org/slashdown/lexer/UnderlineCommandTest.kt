@@ -1,39 +1,36 @@
-package org.slashdown.lexer;
+package org.slashdown.lexer
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UnderlineCommandTest {
-
+internal class UnderlineCommandTest {
     @BeforeEach
-    void setUp() {
+    fun setUp() {
     }
 
     @AfterEach
-    void tearDown() {
+    fun tearDown() {
     }
 
     @Test
-    void getType() {
+    fun getType() {
     }
 
     @Test
-    void getClosingTag() {
+    fun getClosingTag() {
     }
 
     @Test
-    void isClosing() {
+    fun isClosing() {
     }
 
     @Test
-    void getTag() {
+    fun getTag() {
     }
 
     @Test
-    void getName() {
-        Command command = Commands.getCommand("u");
+    fun getName() {
+        val command = Commands.getCommand("u")
     }
 }
