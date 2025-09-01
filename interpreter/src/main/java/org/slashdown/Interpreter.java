@@ -33,9 +33,9 @@ import java.util.List;
 
 public class Interpreter {
 
-    private TokenIterator tokenIterator;
+    private final TokenIterator tokenIterator;
 
-    private List<Element> blocks = new ArrayList<>();
+    private final List<Element> blocks = new ArrayList<>();
     private Element currentBlock = new Paragraph();
 
     Interpreter(TokenIterator tokenIterator) {
