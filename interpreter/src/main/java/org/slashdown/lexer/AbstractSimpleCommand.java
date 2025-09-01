@@ -44,4 +44,7 @@ public abstract class AbstractSimpleCommand implements Command {
         }
     }
 
+    public String getEscTag() {
+        return getTag() + ";";
+    }
 }

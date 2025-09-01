@@ -47,7 +47,11 @@ public class Commands {
         }
 
         if(Objects.isNull(command)) {
-            SyntaxError.raise("Invalid command", valid);
+            if(token.value().endsWith(";")) {
+                SyntaxError.raise("Invalid use of (;) semicolon", valid);
+            } else {
+                SyntaxError.raise("Invalid command", valid);
+            }
         } else if(command.variableSupport() == Variable.MANDATORY && !variable) {
             SyntaxError.raise("Variable is mandatory", valid);
         } else if(command.variableSupport() == Variable.PROHIBITED && variable) {
@@ -116,13 +120,13 @@ public class Commands {
 
     public static boolean hasVariable(Token token) {
         String value = token.value();
-        return value.contains(":") || value.endsWith(";");
+        return value.contains(":") && value.endsWith(";");
     }
 
     public static void examineVariableCommand(Token token) {
         String value = token.value();
 
-        if(!value.startsWith("\\") || !value.contains(":") || !value.endsWith(";")) {
+        if(!value.startsWith("\\") || !(value.contains(":") && value.endsWith(";"))) {
             SyntaxError.raise("Command tag and variable not properly delimited", token);
         }
     }

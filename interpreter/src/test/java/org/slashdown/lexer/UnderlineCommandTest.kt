@@ -31,6 +31,6 @@ internal class UnderlineCommandTest {
 
     @Test
     fun getName() {
-        val command = Commands.getCommand("u")
+        val command = CommandMap.getCommand("u")
     }
 }

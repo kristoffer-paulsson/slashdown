@@ -81,6 +81,8 @@ public class TokenCommand extends TokenScanner {
             }
             if(i < line.length() && finalValid(line.charAt(i))) {
                 i++;
+            } else if(i < line.length() && line.charAt(i) == ';'){
+                i++;
             } else if(i < line.length() && line.charAt(i) == ':') {
                 i++;
                 while (i < line.length() && isValid(line.charAt(i))) {

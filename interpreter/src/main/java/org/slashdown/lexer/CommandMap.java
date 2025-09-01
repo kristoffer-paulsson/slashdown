@@ -101,6 +101,7 @@ public class CommandMap {
         Commands.isSimple(command, (c) -> {
             setCommand(c.getName(), c);
             setTag(c.getTag(), c.getName());
+            setTag(c.getEscTag(), c.getName());
 
             String symbol = c.getSymbolTag();
             if(!symbol.isBlank()) {
