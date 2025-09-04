@@ -21,8 +21,6 @@
  */
 package org.slashdown.token;
 
-import java.util.Set;
-
 public class TokenCommand extends TokenScanner {
 
     public boolean initialValid(char c) {

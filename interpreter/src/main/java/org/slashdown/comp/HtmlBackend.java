@@ -21,6 +21,10 @@
  */
 package org.slashdown.comp;
 
+import org.slashdown.lexer.AbstractBlockCommand;
+import org.slashdown.lexer.AbstractInlineCommand;
+import org.slashdown.token.Token;
+
 import java.io.IOException;
 
 public class HtmlBackend extends Compiler {
@@ -36,12 +40,37 @@ public class HtmlBackend extends Compiler {
     }
 
     @Override
-    protected void startImpl() throws IOException {
+    protected void startDocImpl() throws IOException {
         writeString("<html><head></head><body>");
     }
 
     @Override
-    protected void finishImpl() throws IOException {
+    protected void finishDocImpl() throws IOException {
         writeString("</body></html>");
+    }
+
+    @Override
+    protected void startBlkImpl(Token token, AbstractBlockCommand<?> command) throws IOException {
+
+    }
+
+    @Override
+    protected void finishBlkImpl() throws IOException {
+
+    }
+
+    @Override
+    protected void startInlImpl(Token token, AbstractInlineCommand command) throws IOException {
+
+    }
+
+    @Override
+    protected void finishInlImpl(Token token, AbstractInlineCommand command) throws IOException {
+
+    }
+
+    @Override
+    protected void whenSimpleImpl(Token token, AbstractInlineCommand command) throws IOException {
+
     }
 }

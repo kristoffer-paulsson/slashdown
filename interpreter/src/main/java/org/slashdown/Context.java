@@ -67,9 +67,9 @@ public class Context {
 
     public void interpret() {
         try {
-            this.backend.start();
+            this.backend.startDocument();
             this.interpreter.interpret();
-            this.backend.finish();
+            this.backend.finishDocument();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

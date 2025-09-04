@@ -26,7 +26,7 @@ import org.slashdown.lexer.Commands;
 import org.slashdown.token.Token;
 import org.slashdown.token.TokenType;
 
-public class Headline extends Element{
+public class Headline extends Element {
 
     private boolean eolReached = false;
 

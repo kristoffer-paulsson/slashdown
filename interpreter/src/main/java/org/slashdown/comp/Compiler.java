@@ -21,12 +21,17 @@
  */
 package org.slashdown.comp;
 
+import org.slashdown.lexer.AbstractBlockCommand;
+import org.slashdown.lexer.AbstractInlineCommand;
+import org.slashdown.token.Token;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
 
 public abstract class Compiler implements AutoCloseable {
 
@@ -54,22 +59,52 @@ public abstract class Compiler implements AutoCloseable {
         }
     }
 
+    protected abstract void closeImpl() throws IOException;
+
     protected void writeString(String out) throws IOException {
         outputStream.write(out.getBytes(StandardCharsets.UTF_8));
     }
 
-    protected abstract void closeImpl() throws IOException;
-
-    public void start() throws IOException{
-        startImpl();
+    public void startDocument() throws IOException {
+        startDocImpl();
     }
 
-    protected abstract void startImpl() throws IOException;
+    protected abstract void startDocImpl() throws IOException;
 
-    public void finish() throws IOException{
-        finishImpl();
+    public void finishDocument() throws IOException{
+        finishDocImpl();
     }
 
-    protected abstract void finishImpl() throws IOException;
+    protected abstract void finishDocImpl() throws IOException;
+
+    public void startBlock(Token token, AbstractBlockCommand<?> command) throws IOException {
+        startBlkImpl(token, command);
+    }
+
+    protected abstract void startBlkImpl(Token token, AbstractBlockCommand<?> command) throws IOException;
+
+    public void finishBlock() throws IOException {
+        finishBlkImpl();
+    }
+
+    protected abstract void finishBlkImpl() throws IOException;
+
+    public void startInline(Token token, AbstractInlineCommand command) throws IOException {
+        startInlImpl(token, command);
+    }
+
+    protected abstract void startInlImpl(Token token, AbstractInlineCommand command) throws IOException;
+
+    public void finishInline(Token token, AbstractInlineCommand command) throws IOException {
+        finishInlImpl(token, command);
+    }
+
+    protected abstract void finishInlImpl(Token token, AbstractInlineCommand command) throws IOException;
+
+    public void whenSimple(Token token, AbstractInlineCommand command) throws IOException {
+        whenSimpleImpl(token, command);
+    }
+
+    protected abstract void whenSimpleImpl(Token token, AbstractInlineCommand command) throws IOException;
 
 }
