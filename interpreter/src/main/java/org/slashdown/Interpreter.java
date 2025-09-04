@@ -54,7 +54,6 @@ public class Interpreter {
             Token token = tokenIterator.next();
 
             if(Tokens.isCommand(token)) {
-                // Enforces only valid commands
                 Commands.commandFromToken(token);
             }
 
@@ -67,6 +66,7 @@ public class Interpreter {
                 if(!currentBlock.offerToken(token)) {
                     SyntaxError.raise("Unhandled token", token);
                 }
+
             }
         }
     }

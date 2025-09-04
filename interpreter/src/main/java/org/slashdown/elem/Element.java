@@ -60,7 +60,6 @@ public abstract class Element {
 
         inlineCommands.removeLast();
         inlineToken.removeLast();
-
     }
 
     protected boolean closed = false;
