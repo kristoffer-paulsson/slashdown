@@ -1,5 +1,6 @@
 package org.slashdown;
 
+import org.slashdown.comp.HtmlBackend;
 import org.slashdown.token.TokenIterator;
 import org.slashdown.token.Tokenizer;
 
@@ -17,6 +18,6 @@ public class Main {
 
         interpreter.interpret();*/
 
-        new Context("corpus.txt").interpret();
+        new Context("corpus.txt", new HtmlBackend()).interpret();
     }
 }

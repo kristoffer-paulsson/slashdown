@@ -43,8 +43,10 @@ public class Interpreter {
     }
 
     protected void changeBlock(Element block) {
-        blocks.add(currentBlock);
         currentBlock.evaluate();
+        if(currentBlock.isVisible()) {
+            blocks.add(currentBlock);
+        }
         currentBlock = block;
     }
 
@@ -66,7 +68,6 @@ public class Interpreter {
                 if(!currentBlock.offerToken(token)) {
                     SyntaxError.raise("Unhandled token", token);
                 }
-
             }
         }
     }

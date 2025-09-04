@@ -21,5 +21,27 @@
  */
 package org.slashdown.comp;
 
-public class HtmlBackend implements Compiler {
+import java.io.IOException;
+
+public class HtmlBackend extends Compiler {
+
+    @Override
+    public String getFileSuffix() {
+        return "html";
+    }
+
+    @Override
+    protected void closeImpl() throws IOException {
+        outputStream.close();
+    }
+
+    @Override
+    protected void startImpl() throws IOException {
+        writeString("<html><head></head><body>");
+    }
+
+    @Override
+    protected void finishImpl() throws IOException {
+        writeString("</body></html>");
+    }
 }

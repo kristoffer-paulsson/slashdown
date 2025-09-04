@@ -21,5 +21,55 @@
  */
 package org.slashdown.comp;
 
-public interface Compiler {
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public abstract class Compiler implements AutoCloseable {
+
+    protected File outputFile;
+    protected FileOutputStream outputStream;
+
+    public void setOutputFile(Path outputFile) {
+        try {
+            Files.createDirectories(outputFile.getParent());
+            this.outputFile = Files.createFile(outputFile).toFile();
+            this.outputStream = new FileOutputStream(this.outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    abstract public String getFileSuffix();
+
+    @Override
+    public void close() {
+        try {
+            closeImpl();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected void writeString(String out) throws IOException {
+        outputStream.write(out.getBytes(StandardCharsets.UTF_8));
+    }
+
+    protected abstract void closeImpl() throws IOException;
+
+    public void start() throws IOException{
+        startImpl();
+    }
+
+    protected abstract void startImpl() throws IOException;
+
+    public void finish() throws IOException{
+        finishImpl();
+    }
+
+    protected abstract void finishImpl() throws IOException;
+
 }
