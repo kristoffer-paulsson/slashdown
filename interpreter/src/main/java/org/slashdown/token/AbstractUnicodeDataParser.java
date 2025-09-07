@@ -47,6 +47,10 @@ public abstract class AbstractUnicodeDataParser<E> implements Iterator<E>, AutoC
         initialize(reader);
     }
 
+    public AbstractUnicodeDataParser(BufferedReader reader) throws IOException {
+        initialize(reader);
+    }
+
     protected void initialize(BufferedReader reader) throws IOException {
         this.reader = reader;
         advance(); // Read the first line
