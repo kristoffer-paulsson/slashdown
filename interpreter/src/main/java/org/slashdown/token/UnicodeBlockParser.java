@@ -25,11 +25,16 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 
 public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockParser.Block>{
 
     public UnicodeBlockParser(URL url) throws IOException {
         super(url);
+    }
+
+    public UnicodeBlockParser(BufferedReader reader) throws IOException {
+        super(reader);
     }
 
     @Override
@@ -69,13 +74,10 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
     }
 
     public static void main(String[] args) {
-        try(var parser = new UnicodeBlockParser(new URI("https://www.unicode.org/Public/16.0.0/ucd/Blocks.txt").toURL())) {
+        try(var parser = new UnicodeBlockParser(new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("Blocks.txt")))))) {
             parser.forEachRemaining(System.out::println);
-
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
     }
 }
