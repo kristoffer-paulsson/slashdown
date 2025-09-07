@@ -32,21 +32,6 @@ public abstract class AbstractUnicodeDataParser<E> implements Iterator<E>, AutoC
     private BufferedReader reader;
     private String nextLine;
 
-    public AbstractUnicodeDataParser(URL url) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        initialize(reader);
-    }
-
-    public AbstractUnicodeDataParser(Path file) throws IOException {
-        BufferedReader reader = Files.newBufferedReader(file);
-        initialize(reader);
-    }
-
-    public AbstractUnicodeDataParser(String str) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(str.getBytes())));
-        initialize(reader);
-    }
-
     public AbstractUnicodeDataParser(BufferedReader reader) throws IOException {
         initialize(reader);
     }
@@ -99,5 +84,21 @@ public abstract class AbstractUnicodeDataParser<E> implements Iterator<E>, AutoC
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static BufferedReader fromUrl(URL url) throws IOException {
+        return new BufferedReader(new InputStreamReader(url.openStream()));
+    }
+
+    public static BufferedReader fromPath(Path file) throws IOException{
+        return Files.newBufferedReader(file);
+    }
+
+    public static BufferedReader fromString(String str) throws IOException{
+        return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(str.getBytes())));
+    }
+
+    public static BufferedReader fromResource(String str) throws IOException {
+        return new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(str))));
     }
 }

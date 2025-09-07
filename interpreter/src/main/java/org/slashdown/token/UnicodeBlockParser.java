@@ -22,16 +22,9 @@
 package org.slashdown.token;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Objects;
 
 public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockParser.Block>{
-
-    public UnicodeBlockParser(URL url) throws IOException {
-        super(url);
-    }
 
     public UnicodeBlockParser(BufferedReader reader) throws IOException {
         super(reader);
@@ -74,7 +67,7 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
     }
 
     public static void main(String[] args) {
-        try(var parser = new UnicodeBlockParser(new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("Blocks.txt")))))) {
+        try(var parser = new UnicodeBlockParser(UnicodeBlockParser.fromResource("Blocks.txt"))) {
             parser.forEachRemaining(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
