@@ -21,16 +21,17 @@
  */
 package org.slashdown.token;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
 
-public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockParser.Block>{
+public class UnicodeDataParser extends AbstractUnicodeDataParser<UnicodeDataParser.UnicodeData>{
 
-    public UnicodeBlockParser(BufferedReader reader) throws IOException {
+    public UnicodeDataParser(BufferedReader reader) throws IOException {
         super(reader);
     }
 
     @Override
-    public Block processRow(String[] parts) {
+    public UnicodeData processRow(String[] parts) {
         if (parts.length != 2) {
             throw new IllegalStateException("Must be exactly two fields");
         }
@@ -42,15 +43,15 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
         }
         int start = Integer.parseInt(rangeParts[0].trim(), 16);
         int end = Integer.parseInt(rangeParts[1].trim(), 16);
-        return new Block(start, end, name);
+        return new UnicodeData(start, end, name);
     }
 
-    public static class Block {
+    public static class UnicodeData {
         int start;
         int end;
         String name;
 
-        public Block(int start, int end, String name) {
+        public UnicodeData(int start, int end, String name) {
             this.start = start;
             this.end = end;
             this.name = name;
@@ -66,7 +67,7 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
     }
 
     public static void main(String[] args) {
-        try(var parser = new UnicodeBlockParser(UnicodeBlockParser.fromResource("Blocks.txt"))) {
+        try(var parser = new UnicodeDataParser(UnicodeDataParser.fromResource("UnicodeData.txt"))) {
             parser.forEachRemaining(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
