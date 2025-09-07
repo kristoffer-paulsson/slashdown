@@ -63,6 +63,10 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
         public String toString() {
             return String.format("%s - %s: %s", start, end, getTag());
         }
+
+        public boolean withinBlock(int codePoint) {
+            return start >= codePoint && codePoint <= end;
+        }
     }
 
     public static void main(String[] args) {

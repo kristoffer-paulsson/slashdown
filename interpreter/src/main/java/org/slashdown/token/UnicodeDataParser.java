@@ -32,29 +32,37 @@ public class UnicodeDataParser extends AbstractUnicodeDataParser<UnicodeDataPars
 
     @Override
     public UnicodeData processRow(String[] parts) {
-        if (parts.length != 2) {
-            throw new IllegalStateException("Must be exactly two fields");
-        }
-        String range = parts[0].trim();
+        //System.out.println(parts.length);
+        /*if (parts.length >= 11) {
+            throw new IllegalStateException("Must be exactly eleven fields");
+        }*/
+        int codePoint = Integer.parseInt(parts[0].trim(), 16);
         String name = parts[1].trim();
-        String[] rangeParts = range.split("\\.\\.");
-        if (rangeParts.length != 2) {
-            throw new IllegalStateException("Failed to parser range");
-        }
-        int start = Integer.parseInt(rangeParts[0].trim(), 16);
-        int end = Integer.parseInt(rangeParts[1].trim(), 16);
-        return new UnicodeData(start, end, name);
+        UnicodeCategory uc = UnicodeCategory.fromAbbreviation(parts[2].trim());
+        return new UnicodeData(codePoint, name, uc);
     }
 
     public static class UnicodeData {
-        int start;
-        int end;
+        int codePoint;
         String name;
+        UnicodeCategory category;
 
-        public UnicodeData(int start, int end, String name) {
-            this.start = start;
-            this.end = end;
+        public UnicodeData(int codePoint, String name, UnicodeCategory category) {
+            this.codePoint = codePoint;
             this.name = name;
+            this.category = category;
+        }
+
+        public int getCodePoint() {
+            return this.codePoint;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public UnicodeCategory getCategory() {
+            return this.category;
         }
 
         public String getTag() {
@@ -62,13 +70,17 @@ public class UnicodeDataParser extends AbstractUnicodeDataParser<UnicodeDataPars
         }
 
         public String toString() {
-            return String.format("%s - %s: %s", start, end, getTag());
+            return String.format("%s, %s, %s", codePoint, name, category.getAbbreviation());
         }
     }
 
     public static void main(String[] args) {
         try(var parser = new UnicodeDataParser(UnicodeDataParser.fromResource("UnicodeData.txt"))) {
-            parser.forEachRemaining(System.out::println);
+            parser.forEachRemaining((u) -> {
+                if(u.category.isNumber()) {
+                    System.out.println(u);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
