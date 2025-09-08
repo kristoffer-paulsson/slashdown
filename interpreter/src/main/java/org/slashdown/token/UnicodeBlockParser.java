@@ -71,7 +71,9 @@ public class UnicodeBlockParser extends AbstractUnicodeDataParser<UnicodeBlockPa
 
     public static void main(String[] args) {
         try(var parser = new UnicodeBlockParser(UnicodeBlockParser.fromResource("Blocks.txt"))) {
-            parser.forEachRemaining(System.out::println);
+            parser.forEachRemaining((b) -> {
+                System.out.println(String.format("    %s(0x%06X, 0x%06X),", b.getTag(), b.start, b.end));
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
