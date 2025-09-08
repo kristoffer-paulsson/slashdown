@@ -77,7 +77,7 @@ public class UnicodeDataParser extends AbstractUnicodeDataParser<UnicodeDataPars
     public static void main(String[] args) {
         try(var parser = new UnicodeDataParser(UnicodeDataParser.fromResource("UnicodeData.txt"))) {
             parser.forEachRemaining((u) -> {
-                if(u.category.isNumber()) {
+                if(UnicodeBlock.fromCodePoint(u.codePoint) == UnicodeBlock.BASIC_LATIN && u.category.isCasedLetter()) {
                     System.out.println(u);
                 }
             });
