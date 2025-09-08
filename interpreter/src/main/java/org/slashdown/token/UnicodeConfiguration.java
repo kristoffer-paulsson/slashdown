@@ -21,10 +21,14 @@
  */
 package org.slashdown.token;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class UnicodeConfiguration {
+
+    private boolean configured = false;
 
     private final UnicodeBlock block;
 
@@ -36,5 +40,23 @@ public class UnicodeConfiguration {
 
     public UnicodeBlock getBlock() {
         return block;
+    }
+
+    public void config(UnicodeDataParser.UnicodeData cp) {
+        if(configured) {
+            throw new IllegalStateException("Already configured");
+        }
+
+        UnicodeCategory category = cp.getCategory();
+
+        if(!cpMap.containsKey(category)) {
+            cpMap.put(category, new LinkedHashSet<>());
+        }
+
+        cpMap.get(category).add(cp.getCodePoint());
+    }
+
+    public void setConfigured() {
+        this.configured = true;
     }
 }

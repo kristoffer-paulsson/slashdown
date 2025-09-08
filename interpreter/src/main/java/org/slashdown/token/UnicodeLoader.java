@@ -21,5 +21,43 @@
  */
 package org.slashdown.token;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class UnicodeLoader {
+
+    private boolean loaded = false;
+
+    private final Map<UnicodeBlock, UnicodeConfiguration> configMap = new HashMap<>();
+    private final Set<UnicodeBlock> configSet;
+
+
+    public UnicodeLoader(Map<UnicodeBlock, UnicodeConfiguration> configMap) {
+        this.configMap.putAll(configMap);
+        this.configSet = configMap.keySet();
+    }
+
+    public void loadUnicode() {
+        if(loaded) {
+            throw new IllegalStateException("Unicode already loaded");
+        }
+
+        try(var parser = new UnicodeDataParser(UnicodeDataParser.fromResource("UnicodeData.txt"))) {
+            parser.forEachRemaining((u) -> {
+                UnicodeBlock b = UnicodeBlock.fromCodePoint(u.getCodePoint());
+                if(this.configSet.contains(b)) {
+                    this.configMap.get(b).config(u);
+                }
+            });
+        } catch (IOException ignored) {
+            throw new RuntimeException();
+        }
+
+        this.configMap.forEach((b, c) -> {
+            c.setConfigured();
+        });
+        this.loaded = true;
+    }
 }
