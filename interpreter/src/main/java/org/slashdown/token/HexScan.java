@@ -21,9 +21,9 @@
  */
 package org.slashdown.token;
 
-public class DigitScan implements Filter {
+public class HexScan implements Filter {
 
-    public static final String CHARS = "0123456789";
+    private static final String CHARS = DigitScan.CHARS + "ABCDEF";
 
     @Override
     public boolean isValid(char c) {
