@@ -21,15 +21,12 @@
  */
 package org.slashdown.token;
 
-public interface Filter {
+public class DigitScan implements Filter {
 
-    public boolean isValid(char c);
+    private static final String CHARS = "0123456789";
 
-    public default int scanUntil(String line, int start) {
-        int i = start;
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
-        }
-        return i;
+    @Override
+    public boolean isValid(char c) {
+        return CHARS.indexOf(c) != -1;
     }
 }
