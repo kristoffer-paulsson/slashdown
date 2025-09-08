@@ -21,7 +21,7 @@
  */
 package org.slashdown.token;
 
-public class HexScan implements Filter {
+public class HexScan implements SimpleFilter {
 
     private static final String CHARS = DigitScan.CHARS + "ABCDEF";
 

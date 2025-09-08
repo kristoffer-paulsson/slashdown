@@ -21,7 +21,7 @@
  */
 package org.slashdown.token;
 
-public class DigitScan implements Filter {
+public class DigitScan implements SimpleFilter {
 
     public static final String CHARS = "0123456789";
 

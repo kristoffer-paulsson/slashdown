@@ -21,7 +21,7 @@
  */
 package org.slashdown.token;
 
-public class UpperScan implements Filter {
+public class UpperScan implements SimpleFilter {
 
     private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

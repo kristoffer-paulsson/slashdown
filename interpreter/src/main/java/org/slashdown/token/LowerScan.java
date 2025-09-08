@@ -21,7 +21,7 @@
  */
 package org.slashdown.token;
 
-public class LowerScan implements Filter {
+public class LowerScan implements SimpleFilter {
 
     private static final String CHARS = "abcdefghijklmnopqrstuvwxyz";
 
