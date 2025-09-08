@@ -368,17 +368,17 @@ public enum UnicodeBlock {
     SUPPLEMENTARY_PRIVATE_USE_AREA_B(0x100000, 0x10FFFF),
     NO_BLOCK(-1, -1);  // For code points not in any block
 
-    private final int begin;
+    private final int start;
     private final int end;
 
     UnicodeBlock(int begin, int end) {
-        this.begin = begin;
+        this.start = begin;
         this.end = end;
     }
 
     /** Returns the inclusive begin code point for the block. */
-    public int getBegin() {
-        return begin;
+    public int getStart() {
+        return start;
     }
 
     /** Returns the inclusive end code point for the block. */
@@ -392,7 +392,7 @@ public enum UnicodeBlock {
      */
     public static UnicodeBlock fromCodePoint(int codePoint) {
         for (UnicodeBlock block : values()) {
-            if (block != NO_BLOCK && codePoint >= block.begin && codePoint <= block.end) {
+            if (block != NO_BLOCK && codePoint >= block.start && codePoint <= block.end) {
                 return block;
             }
         }
