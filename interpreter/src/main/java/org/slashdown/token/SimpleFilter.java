@@ -24,12 +24,4 @@ package org.slashdown.token;
 public interface SimpleFilter extends Filter {
 
     public boolean isValid(char c);
-
-    public default int scanUntil(String line, int start) {
-        int i = start;
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
-        }
-        return i;
-    }
 }

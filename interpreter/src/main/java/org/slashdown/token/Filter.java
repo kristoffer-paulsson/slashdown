@@ -23,5 +23,5 @@ package org.slashdown.token;
 
 public interface Filter {
 
-    public int scanUntil(String line, int start);
+    public int scanUntil(Subject term);
 }

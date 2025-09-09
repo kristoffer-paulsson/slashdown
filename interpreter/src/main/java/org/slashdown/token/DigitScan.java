@@ -21,12 +21,18 @@
  */
 package org.slashdown.token;
 
-public class DigitScan implements SimpleFilter {
+public class DigitScan extends AbstractScanner implements SimpleFilter {
 
     public static final String CHARS = "0123456789";
 
     @Override
     public boolean isValid(char c) {
         return CHARS.indexOf(c) != -1;
+    }
+
+    @Override
+    public int scanUntil(Subject term) {
+        optionalMulti(term, this::isValid);
+        return term.offset();
     }
 }
