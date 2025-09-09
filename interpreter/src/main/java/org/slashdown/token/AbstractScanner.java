@@ -57,6 +57,10 @@ public abstract class AbstractScanner implements Filter {
         return term.offset() > 0;
     }
 
+    protected boolean testSingle(Subject term, Evaluator expr) {
+        return term.hasRemaining() && expr.validation(term.currentChar());
+    }
+
     protected void enforce(boolean correct) {
         enforce(correct, "Token scanner internal Syntax Error");
     }

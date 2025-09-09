@@ -37,6 +37,8 @@ public class Tokenizer {
 
     private int lineNumber = 0;
 
+    private Subject line = new Subject("", 0);
+
     public Tokenizer(InputStream input) {
         this.reader = new BufferedReader(new InputStreamReader(input));
 
@@ -48,49 +50,49 @@ public class Tokenizer {
         //scanners.add(new TokenNonWhitespace());
     }
 
-    public void tokenize() throws IOException {
+    /*public void tokenize() throws IOException {
         String line;
         while ((line = reader.readLine()) != null) {
             processLine(line);
         }
-    }
+    }*/
 
     public List<Token> processNextLine() {
         tokens.clear();
+        String line;
         try {
-            String line;
             if ((line = reader.readLine()) == null) {
                 throw new IOException("End of stream reached");
             }
-            processLine(line);
+            this.line.reset(line);
+            processLine(this.line);
             return tokens;
         } catch (IOException e) {
             return new ArrayList<>();
         }
     }
 
-    private void processLine(String line) {
+    private void processLine(Subject line) {
         lineNumber++;
-        int index = 0;
-        while (index < line.length()) {
+        while (line.hasRemaining()) {
             boolean matched = false;
             for (TokenScanner scanner : scanners) {
-                if (scanner.initialValid(line.charAt(index))) {
+                if (scanner.initialValid(line.currentChar())) {
                     StringBuilder tokenValue = new StringBuilder();
-                    int stop = scanner.scanUntil(line, index);
-                    tokenValue.append(line, index, stop);
-                    tokens.add(new Token(scanner.getType(), tokenValue.toString(), lineNumber, index + 1));
-                    index = stop;
+                    scanner.scanUntil(line);
+                    int column = line.start();
+                    tokenValue.append(line.advance());
+                    tokens.add(new Token(scanner.getType(), tokenValue.toString(), lineNumber, column + 1));
                     matched = true;
                     break;
                 }
             }
             if (!matched) {
-                tokens.add(new Token(TokenType.UNKNOWN, String.valueOf(line.charAt(index)), lineNumber, index + 1));
-                index++;
+                tokens.add(new Token(TokenType.UNKNOWN, String.valueOf(line.currentChar()), lineNumber, line.start() + 1));
+                line.increase();
             }
         }
-        tokens.add(new Token(TokenType.EOL, "\\n", lineNumber, line.length() + 1));
+        tokens.add(new Token(TokenType.EOL, "\\n", lineNumber, line.line().length() + 1));
     }
 
     public List<Token> getTokens() {

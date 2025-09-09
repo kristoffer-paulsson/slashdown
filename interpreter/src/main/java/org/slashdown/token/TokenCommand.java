@@ -43,56 +43,39 @@ public class TokenCommand extends TokenScanner {
         return TokenWord.CHARACTERS.contains(c);
     }
 
-    public int scanUntil(String line, int start) {
-        int i = start;
-        if (i < line.length() && initialValid(line.charAt(i))) {
-            i++;
-        }
+    public int scanUntil(Subject line) {
+        enforce(mandatorySingle(line, this::initialValid));
 
-        if(i < line.length() && line.charAt(i) == '\\'){
+        if(testSingle(line, (c) -> c == '\\')){
             // Allowing escaping of backslash \\
-            i++;
-        } else if(i < line.length() && line.charAt(i) == 'x') {
-            i++;
-            while (i < line.length() && hexValid(line.charAt(i))) {
-                i++;
-            }
-        } else if (i < line.length() && singleValid(line.charAt(i))) {
+            enforce(mandatorySingle(line, (c) -> c == '\\'));
+        } else if(testSingle(line, (c) -> c == 'x')) {
+            enforce(mandatorySingle(line, (c) -> c == 'x'));
+            enforce(mandatoryMulti(line, this::hexValid));
+        } else if (testSingle(line, this::singleValid)) {
             // Picking up single symbol (not letter) commands
-            i++;
+            enforce(mandatorySingle(line, this::singleValid));
             // Including inline finalizer
-            if(i < line.length() && finalValid(line.charAt(i))) {
-                i++;
-            } else if(i < line.length() && line.charAt(i) == ':') {
-                i++;
-                while (i < line.length() && isValid(line.charAt(i))) {
-                    i++;
-                }
-                if(i < line.length() && line.charAt(i) == ';'){
-                    i++;
-                }
+            if(testSingle(line, this::finalValid)) {
+                enforce(mandatorySingle(line, this::finalValid));
+            } else if(testSingle(line, (c) -> c == ':')) {
+                enforce(mandatorySingle(line, (c) -> c == ':'));
+                enforce(mandatoryMulti(line, this::isValid));
+                enforce(mandatorySingle(line, (c) -> c == ';'));
             }
-        } else if(i < line.length() && isValid(line.charAt(i))) {
-            i++;
-            while (i < line.length() && isValid(line.charAt(i))) {
-                i++;
-            }
-            if(i < line.length() && finalValid(line.charAt(i))) {
-                i++;
-            } else if(i < line.length() && line.charAt(i) == ';'){
-                i++;
-            } else if(i < line.length() && line.charAt(i) == ':') {
-                i++;
-                while (i < line.length() && isValid(line.charAt(i))) {
-                    i++;
-                }
-                if(i < line.length() && line.charAt(i) == ';'){
-                    i++;
-                }
+        } else if(testSingle(line, this::isValid)) {
+            enforce(mandatoryMulti(line, this::isValid));
+
+            if(testSingle(line, this::finalValid)) {
+                enforce(mandatorySingle(line, this::finalValid));
+            } else if(testSingle(line, (c) -> c == ':')) {
+                enforce(mandatorySingle(line, (c) -> c == ':'));
+                enforce(mandatoryMulti(line, this::isValid));
+                enforce(mandatorySingle(line, (c) -> c == ';'));
             }
         }
 
-        return i;
+        return line.position();
     }
 
     public TokenType getType() {

@@ -21,7 +21,7 @@
  */
 package org.slashdown.token;
 
-public abstract class TokenScanner {
+public abstract class TokenScanner extends AbstractScanner implements Filter{
 
     public abstract TokenType getType();
 
@@ -31,11 +31,8 @@ public abstract class TokenScanner {
         return isValid(c);
     }
 
-    public int scanUntil(String line, int start) {
-        int i = start;
-        while (i < line.length() && isValid(line.charAt(i))) {
-            i++;
-        }
-        return i;
+    public int scanUntil(Subject line) {
+        mandatoryMulti(line, this::isValid);
+        return line.position();
     }
 }
