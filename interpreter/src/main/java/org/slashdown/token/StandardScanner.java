@@ -26,11 +26,13 @@ public class StandardScanner {
     private final LowerScan lowerCase;
     private final UpperScan upperCase;
     private final DigitScan digit;
+    private final HexScan hex;
 
     private StandardScanner() {
         this.lowerCase = new LowerScan();
         this.upperCase = new UpperScan();
         this.digit = new DigitScan();
+        this.hex = new HexScan();
     }
 
     private static class Holder {
@@ -52,5 +54,9 @@ public class StandardScanner {
 
     public DigitScan getDigit() {
         return this.digit;
+    }
+
+    public HexScan getHex() {
+        return this.hex;
     }
 }
